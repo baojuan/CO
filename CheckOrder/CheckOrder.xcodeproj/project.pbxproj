@@ -9,11 +9,21 @@
 /* Begin PBXBuildFile section */
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
-		BF17DAFB1B0AF67E009DE4AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAFA1B0AF67E009DE4AE /* ViewController.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
 		BF17DB001B0AF67E009DE4AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFF1B0AF67E009DE4AE /* Images.xcassets */; };
 		BF17DB031B0AF67E009DE4AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF17DB011B0AF67E009DE4AE /* LaunchScreen.xib */; };
 		BF17DB0F1B0AF67E009DE4AE /* CheckOrderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB0E1B0AF67E009DE4AE /* CheckOrderTests.m */; };
+		BF17DB271B0B1178009DE4AE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB1D1B0B1178009DE4AE /* FMDatabase.m */; };
+		BF17DB281B0B1178009DE4AE /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB1F1B0B1178009DE4AE /* FMDatabaseAdditions.m */; };
+		BF17DB291B0B1178009DE4AE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB211B0B1178009DE4AE /* FMDatabasePool.m */; };
+		BF17DB2A1B0B1178009DE4AE /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB231B0B1178009DE4AE /* FMDatabaseQueue.m */; };
+		BF17DB2B1B0B1178009DE4AE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB261B0B1178009DE4AE /* FMResultSet.m */; };
+		BF17DB321B0B121E009DE4AE /* COModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB311B0B121E009DE4AE /* COModel.m */; };
+		BF17DB351B0B13F9009DE4AE /* COCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB341B0B13F9009DE4AE /* COCategoryModel.m */; };
+		BF17DB381B0B1574009DE4AE /* COOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB371B0B1574009DE4AE /* COOrderModel.m */; };
+		BF17DB3F1B0B1797009DE4AE /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB3E1B0B1797009DE4AE /* DBManager.m */; };
+		BF17DB411B0B1B1A009DE4AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF17DB401B0B1B1A009DE4AE /* Foundation.framework */; };
+		BF17DB431B0B1B29009DE4AE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF17DB421B0B1B29009DE4AE /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +42,33 @@
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF17DAF61B0AF67E009DE4AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BF17DAF91B0AF67E009DE4AE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BF17DAFA1B0AF67E009DE4AE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BF17DAFD1B0AF67E009DE4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF17DAFF1B0AF67E009DE4AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BF17DB021B0AF67E009DE4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BF17DB081B0AF67E009DE4AE /* CheckOrderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckOrderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DB0D1B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DB0E1B0AF67E009DE4AE /* CheckOrderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckOrderTests.m; sourceTree = "<group>"; };
+		BF17DB1C1B0B1178009DE4AE /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		BF17DB1D1B0B1178009DE4AE /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		BF17DB1E1B0B1178009DE4AE /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		BF17DB1F1B0B1178009DE4AE /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		BF17DB201B0B1178009DE4AE /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		BF17DB211B0B1178009DE4AE /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		BF17DB221B0B1178009DE4AE /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		BF17DB231B0B1178009DE4AE /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		BF17DB241B0B1178009DE4AE /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		BF17DB251B0B1178009DE4AE /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		BF17DB261B0B1178009DE4AE /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		BF17DB301B0B121E009DE4AE /* COModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COModel.h; sourceTree = "<group>"; };
+		BF17DB311B0B121E009DE4AE /* COModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COModel.m; sourceTree = "<group>"; };
+		BF17DB331B0B13F9009DE4AE /* COCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCategoryModel.h; sourceTree = "<group>"; };
+		BF17DB341B0B13F9009DE4AE /* COCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCategoryModel.m; sourceTree = "<group>"; };
+		BF17DB361B0B1574009DE4AE /* COOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COOrderModel.h; sourceTree = "<group>"; };
+		BF17DB371B0B1574009DE4AE /* COOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COOrderModel.m; sourceTree = "<group>"; };
+		BF17DB3D1B0B1797009DE4AE /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		BF17DB3E1B0B1797009DE4AE /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		BF17DB401B0B1B1A009DE4AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BF17DB421B0B1B29009DE4AE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF17DB431B0B1B29009DE4AE /* libsqlite3.dylib in Frameworks */,
+				BF17DB411B0B1B1A009DE4AE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,8 +94,11 @@
 		BF17DAE61B0AF67D009DE4AE = {
 			isa = PBXGroup;
 			children = (
+				BF17DB2F1B0B121E009DE4AE /* Model */,
+				BF17DB1A1B0B1178009DE4AE /* Libs */,
 				BF17DAF11B0AF67D009DE4AE /* CheckOrder */,
 				BF17DB0B1B0AF67E009DE4AE /* CheckOrderTests */,
+				BF17DB451B0B1B69009DE4AE /* Framework */,
 				BF17DAF01B0AF67D009DE4AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,10 +115,9 @@
 		BF17DAF11B0AF67D009DE4AE /* CheckOrder */ = {
 			isa = PBXGroup;
 			children = (
+				BF17DB3C1B0B1797009DE4AE /* DB */,
 				BF17DAF61B0AF67E009DE4AE /* AppDelegate.h */,
 				BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */,
-				BF17DAF91B0AF67E009DE4AE /* ViewController.h */,
-				BF17DAFA1B0AF67E009DE4AE /* ViewController.m */,
 				BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */,
 				BF17DAFF1B0AF67E009DE4AE /* Images.xcassets */,
 				BF17DB011B0AF67E009DE4AE /* LaunchScreen.xib */,
@@ -117,6 +150,64 @@
 				BF17DB0D1B0AF67E009DE4AE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF17DB1A1B0B1178009DE4AE /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB1B1B0B1178009DE4AE /* fmdb */,
+			);
+			name = Libs;
+			path = libs;
+			sourceTree = "<group>";
+		};
+		BF17DB1B1B0B1178009DE4AE /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB1C1B0B1178009DE4AE /* FMDatabase.h */,
+				BF17DB1D1B0B1178009DE4AE /* FMDatabase.m */,
+				BF17DB1E1B0B1178009DE4AE /* FMDatabaseAdditions.h */,
+				BF17DB1F1B0B1178009DE4AE /* FMDatabaseAdditions.m */,
+				BF17DB201B0B1178009DE4AE /* FMDatabasePool.h */,
+				BF17DB211B0B1178009DE4AE /* FMDatabasePool.m */,
+				BF17DB221B0B1178009DE4AE /* FMDatabaseQueue.h */,
+				BF17DB231B0B1178009DE4AE /* FMDatabaseQueue.m */,
+				BF17DB241B0B1178009DE4AE /* FMDB.h */,
+				BF17DB251B0B1178009DE4AE /* FMResultSet.h */,
+				BF17DB261B0B1178009DE4AE /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		BF17DB2F1B0B121E009DE4AE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB301B0B121E009DE4AE /* COModel.h */,
+				BF17DB311B0B121E009DE4AE /* COModel.m */,
+				BF17DB331B0B13F9009DE4AE /* COCategoryModel.h */,
+				BF17DB341B0B13F9009DE4AE /* COCategoryModel.m */,
+				BF17DB361B0B1574009DE4AE /* COOrderModel.h */,
+				BF17DB371B0B1574009DE4AE /* COOrderModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BF17DB3C1B0B1797009DE4AE /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB3D1B0B1797009DE4AE /* DBManager.h */,
+				BF17DB3E1B0B1797009DE4AE /* DBManager.m */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		BF17DB451B0B1B69009DE4AE /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB421B0B1B29009DE4AE /* libsqlite3.dylib */,
+				BF17DB401B0B1B1A009DE4AE /* Foundation.framework */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +310,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF17DAFB1B0AF67E009DE4AE /* ViewController.m in Sources */,
+				BF17DB291B0B1178009DE4AE /* FMDatabasePool.m in Sources */,
 				BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */,
+				BF17DB381B0B1574009DE4AE /* COOrderModel.m in Sources */,
+				BF17DB2A1B0B1178009DE4AE /* FMDatabaseQueue.m in Sources */,
 				BF17DAF51B0AF67E009DE4AE /* main.m in Sources */,
+				BF17DB351B0B13F9009DE4AE /* COCategoryModel.m in Sources */,
+				BF17DB271B0B1178009DE4AE /* FMDatabase.m in Sources */,
+				BF17DB3F1B0B1797009DE4AE /* DBManager.m in Sources */,
+				BF17DB2B1B0B1178009DE4AE /* FMResultSet.m in Sources */,
+				BF17DB281B0B1178009DE4AE /* FMDatabaseAdditions.m in Sources */,
+				BF17DB321B0B121E009DE4AE /* COModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +515,7 @@
 				BF17DB141B0AF67E009DE4AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF17DB151B0AF67E009DE4AE /* Build configuration list for PBXNativeTarget "CheckOrderTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +524,7 @@
 				BF17DB171B0AF67E009DE4AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
