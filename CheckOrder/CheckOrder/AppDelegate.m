@@ -20,7 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[DBManager shareDB] createTableForClasses:@[@"COCategoryModel",@"COOrderModel"]];
+    BOOL success = [[DBManager shareDB] createTable];
+    
+    
     
     return YES;
 }

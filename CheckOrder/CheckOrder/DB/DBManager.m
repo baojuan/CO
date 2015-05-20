@@ -7,7 +7,8 @@
 //
 
 #import "DBManager.h"
-#import <objc/runtime.h>
+#import "COCategoryModel.h"
+#import "COOrderModel.h"
 
 @interface DBManager ()
 @property (nonatomic, strong) FMDatabase *db;
@@ -35,6 +36,11 @@
         NSString *documentDirectory = [directoryPaths objectAtIndex:0];
         //定义记录文件全名以及路径的字符串filePath
         NSString *filePath = [documentDirectory stringByAppendingPathComponent:dbName];
+        
+#warning 测试代码
+        [fileManager removeItemAtPath:filePath error:nil];
+#pragma -
+        
         //查找文件，如果不存在，就创建一个文件
         if (![fileManager fileExistsAtPath:filePath]) {
             [fileManager createFileAtPath:filePath contents:nil attributes:nil];
@@ -47,101 +53,129 @@
     return self;
 }
 
-- (BOOL)createTableForClasses:(NSArray *)classArray
+- (BOOL)createTable
 {
-    NSDictionary *tableDict = [self sqlTableDictionary:classArray];
-    
-    NSMutableString *sql = [[NSMutableString alloc] init];
-
-    
-    [tableDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        NSDictionary *attributeDict = obj;
-        if ([attributeDict isKindOfClass:[NSDictionary class]]) {
-            NSMutableString *attributeSQL = [[NSMutableString alloc] init];
-
-            [attributeDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                [attributeSQL appendString:[NSString stringWithFormat:@"%@ %@,",key,obj]];
-            }];
-            if (attributeDict) {
-                [attributeSQL deleteCharactersInRange:NSMakeRange([attributeSQL length] - 1, 1)];
-                NSString *createTableString = [[NSString alloc] initWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@);\n",key,attributeSQL];
-                
-                [sql appendString:createTableString];
-            }
-        }
-    }];
-    
-    [self.db executeStatements:sql withResultBlock:^int(NSDictionary *resultsDictionary) {
-        NSLog(@"1q23");
-        return 0;
-    }];
-    
-    
-    
-    return YES;
+    NSString *sql = @"CREATE TABLE IF NOT EXISTS COCategory (categoryId int, name varchar(8),   type tinyint, icon tinyint,  updateTime int); \n CREATE TABLE IF NOT EXISTS COOrder (orderId int,  category tinyint, sum float  time int,   updateTime int, day tinyint,    month tinyint,  year tinyint,   type tinyint,   ps varchar(255))";
+    return [self.db executeStatements:sql];
 }
 
 
+#pragma mark - category
 
-
-#pragma mark - private method
-- (NSString *)sqlKeyAttribute:(NSString *)attribute
+- (BOOL)insertCategoryData:(id)obj
 {
-    NSArray *array = [attribute componentsSeparatedByString:@","];
-    __block NSString *sqlAttribute = nil;
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (idx == 0) {
-            NSString *first = obj;
-            NSRange tiRange = [first rangeOfString:@"Ti"];
-            if (tiRange.length != 0) {
-                sqlAttribute = @"int";
-                return ;
-            }
-            NSRange tsRange = [first rangeOfString:@"Ts"];
-            if (tsRange.length != 0) {
-                sqlAttribute = @"tinyint";
-                return ;
-            }
-            NSRange stringRange = [first rangeOfString:@"NSString"];
-            if (stringRange.length != 0) {
-                sqlAttribute = @"varchar";
-            }
-        }
-        if (idx == 1) {
-            NSString *second = obj;
-            NSRange range = [second rangeOfString:@"&"];
-            if (range.length != 0) {
-                sqlAttribute = @"tinyint"; //自定义类型 只存id
-                return ;
-            }
-        }
-    }];
-    return sqlAttribute;
+    COCategoryModel *model = obj;
+    if ([model isKindOfClass:[COCategoryModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COCategory (categoryId, name, type, icon, updateTime) VALUES (%d, %@, %hd, %hd, %d)",model.categoryId,model.name, model.type, model.icon, model.updateTime];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
 }
 
-- (NSDictionary *)sqlTableDictionary:(NSArray *)classArray
+- (BOOL)deleteCategoryData:(id)obj
 {
-    NSMutableDictionary *tableDict = [[NSMutableDictionary alloc] init];
-    
-    [classArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        NSString *className = obj;
-        if ([className isKindOfClass:[NSString class]]) {
-            unsigned int outCount, i;
-            objc_property_t *properties = class_copyPropertyList(NSClassFromString(className), &outCount);
-            for (i=0; i<outCount; i++) {
-                objc_property_t property = properties[i];
-                NSString * key = [[NSString alloc]initWithCString:property_getName(property)  encoding:NSUTF8StringEncoding];
-                NSString * attribute = [[NSString alloc]initWithCString:property_getAttributes(property)  encoding:NSUTF8StringEncoding];
-                [dict setValue:[self sqlKeyAttribute:attribute] forKey:key];
-            }
-            NSString *tableName = [[className componentsSeparatedByString:@"Model"] firstObject];
-            [tableDict setValue:dict forKey:tableName];
-        }
-        
-    }];
-    return tableDict;
+    COCategoryModel *model = obj;
+    if ([model isKindOfClass:[COCategoryModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM COCategory WHERE categoryId=%d",model.categoryId];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
 }
+
+- (BOOL)updateCategoryData:(id)obj
+{
+    COCategoryModel *model = obj;
+    if ([model isKindOfClass:[COCategoryModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"UPDATE COCategory SET name=%@, type=%hd, icon=%hd, updateTime=%d WHERE categoryId=%d",model.name,model.type,model.icon,model.updateTime,model.categoryId];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
+}
+
+- (NSArray *)selectCategoryData:(NSDictionary *)selectDict
+{
+    NSMutableString *where = [[NSMutableString alloc] init];
+    [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [where appendString:[NSString stringWithFormat:@"%@=%@",key,obj]];
+    }];
+    if (where) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COCategory WHERE %@",where];
+        NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+        FMResultSet *result = [self.db executeQuery:sql];
+        while (result.next) {
+            COCategoryModel *model = [[COCategoryModel alloc] init];
+            model.categoryId = [result intForColumn:@"categoryId"];
+            model.name = [result stringForColumn:@"name"];
+            model.type = [result intForColumn:@"type"];
+            model.icon = [result intForColumn:@"icon"];
+            model.updateTime = [result intForColumn:@"updateTime"];
+            [resultArray addObject:model];
+        }
+        return resultArray;
+    }
+    return nil;
+}
+
+#pragma mark - order
+
+- (BOOL)insertOrderData:(id)obj
+{
+    COOrderModel *model = obj;
+    if ([model isKindOfClass:[COOrderModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COOrder (orderId, category, sum, time, updateTime, day, month, year, type, ps) VALUES (%d, %d, %f, %d, %d, %d, %hd, %hd, %hd, %@)",model.orderId,model.category.categoryId, model.sum, model.time, model.updateTime, model.day, model.month, model.year, model.type, model.ps];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
+}
+
+- (BOOL)deleteOrderData:(id)obj
+{
+    COOrderModel *model = obj;
+    if ([model isKindOfClass:[COOrderModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM COOrder WHERE orderId=%d",model.orderId];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
+}
+
+- (BOOL)updateOrderData:(id)obj
+{
+    COOrderModel *model = obj;
+    if ([model isKindOfClass:[COOrderModel class]]) {
+        NSString *sql = [NSString stringWithFormat:@"UPDATE COOrder SET category=%d, sum=%f, time=%d, updateTime=%d, day=%hd, month=%hd, year=%hd, type=%hd, ps=%@ WHERE orderId=%d",model.category.categoryId,model.sum,model.time,model.updateTime,model.day, model.month, model.year, model.type, model.ps, model.orderId];
+        return [self.db executeUpdate:sql];
+    }
+    return NO;
+}
+
+- (NSArray *)selectOrderData:(NSDictionary *)selectDict
+{
+    NSMutableString *where = [[NSMutableString alloc] init];
+    [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [where appendString:[NSString stringWithFormat:@"%@=%@",key,obj]];
+    }];
+    if (where) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COCategory WHERE %@",where];
+        NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+        FMResultSet *result = [self.db executeQuery:sql];
+        while (result.next) {
+            COOrderModel *model = [[COOrderModel alloc] init];
+            model.orderId = [result intForColumn:@"orderId"];
+            model.category.categoryId = [result intForColumn:@"category"];
+            model.sum = [result intForColumn:@"sum"];
+            model.time = [result intForColumn:@"time"];
+            model.updateTime = [result intForColumn:@"updateTime"];
+            model.day = [result intForColumn:@"day"];
+            model.month = [result intForColumn:@"month"];
+            model.year = [result intForColumn:@"year"];
+            model.type = [result intForColumn:@"type"];
+            model.ps = [result stringForColumn:@"ps"];
+            [resultArray addObject:model];
+        }
+        return resultArray;
+    }
+    return nil;
+}
+
 
 @end

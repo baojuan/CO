@@ -14,7 +14,20 @@ static NSString *dbName = @"CODB.db";
 @interface DBManager : NSObject
 @property (nonatomic, strong)NSString *test;
 + (DBManager *)shareDB;
+- (BOOL)createTable;
 
-- (BOOL)createTableForClasses:(NSArray *)classArray;
+#pragma mark - category data
+- (BOOL)insertCategoryData:(id)obj;
+- (BOOL)deleteCategoryData:(id)obj;
+- (BOOL)updateCategoryData:(id)obj;
+- (NSArray *)selectCategoryData:(NSDictionary *)selectDict;
+
+
+#pragma mark - order data
+- (BOOL)insertOrderData:(id)obj;
+- (BOOL)deleteOrderData:(id)obj;
+- (BOOL)updateOrderData:(id)obj;
+- (NSArray *)selectOrderData:(NSDictionary *)selectDict;
+
 
 @end
