@@ -176,7 +176,7 @@
             model.orderId = [result intForColumn:@"orderId"];
             COCategoryModel *category = [COCategoryModel new];
             category.categoryId = [result intForColumn:@"category"];
-            model.category = category;
+            model.category = [[self selectCategoryData:category] firstObject];
             model.sum = [result intForColumn:@"sum"];
             model.orderTime = [result intForColumn:@"orderTime"];
             model.updateTime = [result intForColumn:@"updateTime"];
