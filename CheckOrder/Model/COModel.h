@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface COModel : NSObject
-
+- (BOOL)isEmptyModel;
+- (NSDictionary *)changeModelToDictionary;
 @end

@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import "DBManager.h"
 
-
+#import "COCategoryModel.h"
+#import "COOrderModel.h"
 @interface AppDelegate ()
 
 @end
@@ -22,6 +23,60 @@
     
     BOOL success = [[DBManager shareDB] createTable];
     
+//    COCategoryModel *model = [COCategoryModel new];
+//    
+//    model.categoryId = 123;
+//    model.name = @"fenlei";
+//    model.type = 1;
+//    model.updateTime = 100000990;
+//    model.icon = 34;
+//    
+//    [[DBManager shareDB] insertCategoryData:model];
+//    model.name = @"name";
+//    model.type = 122;
+//    model.updateTime = 200000990;
+//    model.icon = 222;
+//    [[DBManager shareDB] updateCategoryData:model];
+//
+//    COCategoryModel *smodel = [COCategoryModel new];
+//    
+//    smodel.categoryId = 123;
+//
+//    [[DBManager shareDB] selectCategoryData:smodel];
+    
+//    
+//    COOrderModel *model = [COOrderModel new];
+//    
+//    model.orderId = 1123;
+//    model.category = smodel;
+//    model.type = 1;
+//    model.updateTime = 100000990;
+//    model.orderTime = 33333333;
+//    model.ps = @"pspspsps";
+//    model.year = 1234;
+//    model.month = 3;
+//    model.day = 4;
+//    model.sum = 100.00;
+//    
+//    [[DBManager shareDB] insertOrderData:model];
+//    model.category = smodel;
+//    model.type = 122;
+//    model.updateTime = 200000990;
+//    model.orderTime = 600000990;
+//    model.ps = @"yyyyy";
+//    model.year = 2222;
+//    model.month = 0;
+//    model.day = 0;
+//    model.sum = 500.00;
+//    [[DBManager shareDB] updateOrderData:model];
+//    [[DBManager shareDB] deleteOrderData:model];
+//
+//    COOrderModel *ssmodel = [COOrderModel new];
+//    
+//    ssmodel.orderId = 1123;
+//    
+//    [[DBManager shareDB] selectOrderData:ssmodel];
+
     
     
     return YES;

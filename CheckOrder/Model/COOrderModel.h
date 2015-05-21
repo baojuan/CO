@@ -11,6 +11,7 @@
 
 typedef NS_ENUM(short, COOrderType)
 {
+    COOrderTypeDefault = -1,
     COOrderTypeYours = 0,
     COOrderTypeOurs = 1,
     COOrderTypeMine = 2,
@@ -35,7 +36,7 @@ typedef NS_ENUM(short, COOrderType)
 /**
  *  order 时间 时间戳
  */
-@property (nonatomic, assign) int time;
+@property (nonatomic, assign) int orderTime;
 /**
  *  更新时间 时间戳
  */

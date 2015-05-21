@@ -55,7 +55,7 @@
 
 - (BOOL)createTable
 {
-    NSString *sql = @"CREATE TABLE IF NOT EXISTS COCategory (categoryId int, name varchar(8),   type tinyint, icon tinyint,  updateTime int); \n CREATE TABLE IF NOT EXISTS COOrder (orderId int,  category tinyint, sum float  time int,   updateTime int, day tinyint,    month tinyint,  year tinyint,   type tinyint,   ps varchar(255))";
+    NSString *sql = @"CREATE TABLE IF NOT EXISTS COCategory (categoryId int, name varchar(8),   type tinyint, icon tinyint,  updateTime int); \n CREATE TABLE IF NOT EXISTS COOrder (orderId int,  category tinyint, sum float,  orderTime int,   updateTime int, day tinyint,    month tinyint,  year tinyint,   type tinyint,   ps varchar(255))";
     return [self.db executeStatements:sql];
 }
 
@@ -66,7 +66,7 @@
 {
     COCategoryModel *model = obj;
     if ([model isKindOfClass:[COCategoryModel class]]) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COCategory (categoryId, name, type, icon, updateTime) VALUES (%d, %@, %hd, %hd, %d)",model.categoryId,model.name, model.type, model.icon, model.updateTime];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COCategory (categoryId, name, type, icon, updateTime) VALUES (%d, '%@', %hd, %hd, %d)",model.categoryId,model.name, model.type, model.icon, model.updateTime];
         return [self.db executeUpdate:sql];
     }
     return NO;
@@ -86,18 +86,24 @@
 {
     COCategoryModel *model = obj;
     if ([model isKindOfClass:[COCategoryModel class]]) {
-        NSString *sql = [NSString stringWithFormat:@"UPDATE COCategory SET name=%@, type=%hd, icon=%hd, updateTime=%d WHERE categoryId=%d",model.name,model.type,model.icon,model.updateTime,model.categoryId];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE COCategory SET name='%@', type=%hd, icon=%hd, updateTime=%d WHERE categoryId=%d",model.name,model.type,model.icon,model.updateTime,model.categoryId];
         return [self.db executeUpdate:sql];
     }
     return NO;
 }
 
-- (NSArray *)selectCategoryData:(NSDictionary *)selectDict
+- (NSArray *)selectCategoryData:(id)obj
 {
+    COCategoryModel *model = obj;
+    if (![model isKindOfClass:[COCategoryModel class]] || [model isEmptyModel]) {
+        return nil;
+    }
+    NSDictionary *selectDict = [model changeModelToDictionary];
     NSMutableString *where = [[NSMutableString alloc] init];
     [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [where appendString:[NSString stringWithFormat:@"%@=%@",key,obj]];
+        [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
     }];
+    [where deleteCharactersInRange:NSMakeRange([where length] -1, 1)];
     if (where) {
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COCategory WHERE %@",where];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
@@ -122,7 +128,7 @@
 {
     COOrderModel *model = obj;
     if ([model isKindOfClass:[COOrderModel class]]) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COOrder (orderId, category, sum, time, updateTime, day, month, year, type, ps) VALUES (%d, %d, %f, %d, %d, %d, %hd, %hd, %hd, %@)",model.orderId,model.category.categoryId, model.sum, model.time, model.updateTime, model.day, model.month, model.year, model.type, model.ps];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO COOrder (orderId, category, sum, orderTime, updateTime, day, month, year, type, ps) VALUES (%d, %d, %f, %d, %d, %d, %hd, %hd, %hd, '%@')",model.orderId,model.category.categoryId, model.sum, model.orderTime, model.updateTime, model.day, model.month, model.year, model.type, model.ps];
         return [self.db executeUpdate:sql];
     }
     return NO;
@@ -142,28 +148,37 @@
 {
     COOrderModel *model = obj;
     if ([model isKindOfClass:[COOrderModel class]]) {
-        NSString *sql = [NSString stringWithFormat:@"UPDATE COOrder SET category=%d, sum=%f, time=%d, updateTime=%d, day=%hd, month=%hd, year=%hd, type=%hd, ps=%@ WHERE orderId=%d",model.category.categoryId,model.sum,model.time,model.updateTime,model.day, model.month, model.year, model.type, model.ps, model.orderId];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE COOrder SET category=%d, sum=%f, orderTime=%d, updateTime=%d, day=%hd, month=%hd, year=%hd, type=%hd, ps='%@' WHERE orderId=%d",model.category.categoryId,model.sum,model.orderTime,model.updateTime,model.day, model.month, model.year, model.type, model.ps, model.orderId];
         return [self.db executeUpdate:sql];
     }
     return NO;
 }
 
-- (NSArray *)selectOrderData:(NSDictionary *)selectDict
+- (NSArray *)selectOrderData:(id)obj
 {
+    COOrderModel *model = obj;
+    if (![model isKindOfClass:[COOrderModel class]] || [model isEmptyModel]) {
+        return nil;
+    }
+    NSDictionary *selectDict = [model changeModelToDictionary];
+    
     NSMutableString *where = [[NSMutableString alloc] init];
     [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [where appendString:[NSString stringWithFormat:@"%@=%@",key,obj]];
+        [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
     }];
+    [where deleteCharactersInRange:NSMakeRange([where length] -1, 1)];
     if (where) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COCategory WHERE %@",where];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COOrder WHERE %@",where];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
         FMResultSet *result = [self.db executeQuery:sql];
         while (result.next) {
             COOrderModel *model = [[COOrderModel alloc] init];
             model.orderId = [result intForColumn:@"orderId"];
-            model.category.categoryId = [result intForColumn:@"category"];
+            COCategoryModel *category = [COCategoryModel new];
+            category.categoryId = [result intForColumn:@"category"];
+            model.category = category;
             model.sum = [result intForColumn:@"sum"];
-            model.time = [result intForColumn:@"time"];
+            model.orderTime = [result intForColumn:@"orderTime"];
             model.updateTime = [result intForColumn:@"updateTime"];
             model.day = [result intForColumn:@"day"];
             model.month = [result intForColumn:@"month"];

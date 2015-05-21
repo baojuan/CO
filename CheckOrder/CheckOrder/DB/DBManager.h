@@ -20,14 +20,13 @@ static NSString *dbName = @"CODB.db";
 - (BOOL)insertCategoryData:(id)obj;
 - (BOOL)deleteCategoryData:(id)obj;
 - (BOOL)updateCategoryData:(id)obj;
-- (NSArray *)selectCategoryData:(NSDictionary *)selectDict;
+- (NSArray *)selectCategoryData:(id)obj;
 
 
 #pragma mark - order data
 - (BOOL)insertOrderData:(id)obj;
 - (BOOL)deleteOrderData:(id)obj;
 - (BOOL)updateOrderData:(id)obj;
-- (NSArray *)selectOrderData:(NSDictionary *)selectDict;
-
+- (NSArray *)selectOrderData:(id)obj;
 
 @end
