@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DBManager.h"
+#import "CODataCenter.h"
 
 #import "COCategoryModel.h"
 #import "COOrderModel.h"
@@ -20,6 +21,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [CODataCenter settingApp:[COAPPSetting new]];
+    
     
     BOOL success = [[DBManager shareDB] createTable];
     

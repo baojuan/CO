@@ -68,6 +68,11 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="myNameLabel" destination="ZRv-E3-PWg" id="zHO-ZG-DgZ"/>
+                        <outlet property="mySumMoneyLabel" destination="hrM-rA-gt0" id="Z3h-QL-Z0d"/>
+                        <outlet property="sumMoneyLabel" destination="8m0-r1-Pkh" id="066-Ir-FpQ"/>
+                        <outlet property="taNameLabel" destination="fXS-W7-ajk" id="rcX-Bm-KFc"/>
+                        <outlet property="taSumMoneyLabel" destination="uQn-ZB-Chm" id="EoH-4L-YmO"/>
                         <outlet property="tableView" destination="EOc-yc-tyE" id="pm8-oe-2eR"/>
                     </connections>
                 </viewController>

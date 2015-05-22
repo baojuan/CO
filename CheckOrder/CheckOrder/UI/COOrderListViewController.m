@@ -14,10 +14,16 @@
 
 #import "COOrderModel.h"
 
+#import "CODataCenter.h"
 
 @interface COOrderListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong)  NSArray *dataArray;
+@property (weak, nonatomic) IBOutlet UILabel *taSumMoneyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mySumMoneyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *taNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *myNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sumMoneyLabel;
 
 @end
 
@@ -119,6 +125,24 @@
     self.tableView.dataSource = self;
     
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    [self configViewData];
+    
+    
+}
+
+- (void)configViewData
+{
+    float taSumMoney = [CODataCenter taSumMoney];
+    float mySumMoney = [CODataCenter mySumMoney];
+    float allSumMoney = taSumMoney + mySumMoney;
+    
+    self.taNameLabel.text = [NSString stringWithFormat:@"%@的",[CODataCenter taName]];
+    self.myNameLabel.text = [NSString stringWithFormat:@"%@的",[CODataCenter myName]];
+    
+    self.taSumMoneyLabel.text = [NSString stringWithFormat:@"%.2f",taSumMoney];
+    self.mySumMoneyLabel.text = [NSString stringWithFormat:@"%.2f",mySumMoney];
+    self.sumMoneyLabel.text = [NSString stringWithFormat:@"%.2f",allSumMoney];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -169,6 +193,7 @@
     COOrderListTimeCell *cell = [[COOrderListTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"COOrderListTimeCell"];
     NSDictionary *dict = [self.dataArray objectAtIndex:section];
     cell.dateLabel.text = [dict.keyEnumerator nextObject];
+    cell.contentView.backgroundColor = [UIColor redColor];
     return cell.contentView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

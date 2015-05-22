@@ -34,6 +34,7 @@
 		BF17DB5E1B0DE408009DE4AE /* COOrderListRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF17DB5C1B0DE408009DE4AE /* COOrderListRightCell.xib */; };
 		BF17DB621B0DE5C1009DE4AE /* COOrderListLRCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB601B0DE5C1009DE4AE /* COOrderListLRCell.m */; };
 		BF17DB631B0DE5C1009DE4AE /* COOrderListLRCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF17DB611B0DE5C1009DE4AE /* COOrderListLRCell.xib */; };
+		BF17DB6B1B0ED84B009DE4AE /* CODataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		BF17DB5F1B0DE5C1009DE4AE /* COOrderListLRCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COOrderListLRCell.h; sourceTree = "<group>"; };
 		BF17DB601B0DE5C1009DE4AE /* COOrderListLRCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COOrderListLRCell.m; sourceTree = "<group>"; };
 		BF17DB611B0DE5C1009DE4AE /* COOrderListLRCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COOrderListLRCell.xib; sourceTree = "<group>"; };
+		BF17DB691B0ED84B009DE4AE /* CODataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CODataCenter.h; sourceTree = "<group>"; };
+		BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODataCenter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +123,8 @@
 		BF17DAE61B0AF67D009DE4AE = {
 			isa = PBXGroup;
 			children = (
-				BF17DB2F1B0B121E009DE4AE /* Model */,
 				BF17DB1A1B0B1178009DE4AE /* Libs */,
+				BF17DB2F1B0B121E009DE4AE /* Model */,
 				BF17DAF11B0AF67D009DE4AE /* CheckOrder */,
 				BF17DB0B1B0AF67E009DE4AE /* CheckOrderTests */,
 				BF17DB451B0B1B69009DE4AE /* Framework */,
@@ -141,6 +144,7 @@
 		BF17DAF11B0AF67D009DE4AE /* CheckOrder */ = {
 			isa = PBXGroup;
 			children = (
+				BF17DB681B0ED84B009DE4AE /* DataCenter */,
 				BF17DB3C1B0B1797009DE4AE /* DB */,
 				BF17DB4A1B0DC87F009DE4AE /* UI */,
 				BF17DAF61B0AF67E009DE4AE /* AppDelegate.h */,
@@ -276,6 +280,15 @@
 			name = cell;
 			sourceTree = "<group>";
 		};
+		BF17DB681B0ED84B009DE4AE /* DataCenter */ = {
+			isa = PBXGroup;
+			children = (
+				BF17DB691B0ED84B009DE4AE /* CODataCenter.h */,
+				BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */,
+			);
+			path = DataCenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -383,6 +396,7 @@
 			files = (
 				BF17DB581B0DE031009DE4AE /* COOrderListLeftCell.m in Sources */,
 				BF17DB4D1B0DCCA5009DE4AE /* COOrderListViewController.m in Sources */,
+				BF17DB6B1B0ED84B009DE4AE /* CODataCenter.m in Sources */,
 				BF17DB621B0DE5C1009DE4AE /* COOrderListLRCell.m in Sources */,
 				BF17DB291B0B1178009DE4AE /* FMDatabasePool.m in Sources */,
 				BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */,
