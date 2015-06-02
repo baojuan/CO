@@ -190,10 +190,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    COOrderListTimeCell *cell = [[COOrderListTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"COOrderListTimeCell"];
+    COOrderListTimeCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"COOrderListTimeCell" owner:self options:nil] lastObject];
     NSDictionary *dict = [self.dataArray objectAtIndex:section];
     cell.dateLabel.text = [dict.keyEnumerator nextObject];
-    cell.contentView.backgroundColor = [UIColor redColor];
     return cell.contentView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

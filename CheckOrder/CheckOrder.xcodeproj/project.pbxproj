@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF12C41A1B1D9D30005148C6 /* COCalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4181B1D9D30005148C6 /* COCalculationViewController.m */; };
+		BF12C41E1B1D9F51005148C6 /* COCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C41D1B1D9F51005148C6 /* COCategoryView.m */; };
+		BF12C4221B1DA2B1005148C6 /* COCategorySingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */; };
+		BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */; };
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
@@ -48,6 +52,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF12C4171B1D9D30005148C6 /* COCalculationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCalculationViewController.h; sourceTree = "<group>"; };
+		BF12C4181B1D9D30005148C6 /* COCalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCalculationViewController.m; sourceTree = "<group>"; };
+		BF12C41C1B1D9F51005148C6 /* COCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COCategoryView.h; path = UI/COCategoryView.h; sourceTree = "<group>"; };
+		BF12C41D1B1D9F51005148C6 /* COCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = COCategoryView.m; path = UI/COCategoryView.m; sourceTree = "<group>"; };
+		BF12C4201B1DA2B1005148C6 /* COCategorySingleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCategorySingleView.h; sourceTree = "<group>"; };
+		BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCategorySingleView.m; sourceTree = "<group>"; };
+		BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COCategorySingleView.xib; sourceTree = "<group>"; };
 		BF17DAEF1B0AF67D009DE4AE /* CheckOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DAF31B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,6 +131,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF12C41F1B1D9F56005148C6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BF12C41C1B1D9F51005148C6 /* COCategoryView.h */,
+				BF12C41D1B1D9F51005148C6 /* COCategoryView.m */,
+				BF12C4201B1DA2B1005148C6 /* COCategorySingleView.h */,
+				BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */,
+				BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */,
+			);
+			name = Common;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		BF17DAE61B0AF67D009DE4AE = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +270,7 @@
 		BF17DB4A1B0DC87F009DE4AE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				BF12C41F1B1D9F56005148C6 /* Common */,
 				BF17DB4E1B0DCCBA009DE4AE /* OrderList */,
 			);
 			path = UI;
@@ -257,6 +282,8 @@
 				BF17DB4F1B0DD403009DE4AE /* cell */,
 				BF17DB4B1B0DCCA5009DE4AE /* COOrderListViewController.h */,
 				BF17DB4C1B0DCCA5009DE4AE /* COOrderListViewController.m */,
+				BF12C4171B1D9D30005148C6 /* COCalculationViewController.h */,
+				BF12C4181B1D9D30005148C6 /* COCalculationViewController.m */,
 			);
 			name = OrderList;
 			sourceTree = "<group>";
@@ -376,6 +403,7 @@
 				BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */,
 				BF17DB541B0DD4D8009DE4AE /* COOrderListTimeCell.xib in Resources */,
 				BF17DB031B0AF67E009DE4AE /* LaunchScreen.xib in Resources */,
+				BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */,
 				BF17DB001B0AF67E009DE4AE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,9 +425,11 @@
 				BF17DB581B0DE031009DE4AE /* COOrderListLeftCell.m in Sources */,
 				BF17DB4D1B0DCCA5009DE4AE /* COOrderListViewController.m in Sources */,
 				BF17DB6B1B0ED84B009DE4AE /* CODataCenter.m in Sources */,
+				BF12C4221B1DA2B1005148C6 /* COCategorySingleView.m in Sources */,
 				BF17DB621B0DE5C1009DE4AE /* COOrderListLRCell.m in Sources */,
 				BF17DB291B0B1178009DE4AE /* FMDatabasePool.m in Sources */,
 				BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */,
+				BF12C41E1B1D9F51005148C6 /* COCategoryView.m in Sources */,
 				BF17DB521B0DD4C6009DE4AE /* COOrderListTimeCell.m in Sources */,
 				BF17DB381B0B1574009DE4AE /* COOrderModel.m in Sources */,
 				BF17DB2A1B0B1178009DE4AE /* FMDatabaseQueue.m in Sources */,
@@ -412,6 +442,7 @@
 				BF17DB281B0B1178009DE4AE /* FMDatabaseAdditions.m in Sources */,
 				BF17DB481B0C2FBD009DE4AE /* DBManager+CreateDBTable.m in Sources */,
 				BF17DB321B0B121E009DE4AE /* COModel.m in Sources */,
+				BF12C41A1B1D9D30005148C6 /* COCalculationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

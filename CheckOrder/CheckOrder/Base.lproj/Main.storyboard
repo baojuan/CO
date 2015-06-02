@@ -51,6 +51,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="vxA-22-MJN" kind="modal" id="9Kp-kI-ofj"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="EOc-yc-tyE">
                                 <rect key="frame" x="0.0" y="165" width="320" height="403"/>
@@ -79,6 +82,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Etw-aD-Ncf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="330" y="582"/>
+        </scene>
+        <!--Calculation View Controller-->
+        <scene sceneID="ysD-NK-AEs">
+            <objects>
+                <viewController id="vxA-22-MJN" customClass="COCalculationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ubq-BZ-DzI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jjk-fr-qcF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WFs-Pv-rHb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJe-DB-0wT">
+                                <rect key="frame" x="10" y="20" width="44" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="关闭">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-dO-Sav">
+                                <rect key="frame" x="65" y="28" width="190" height="29"/>
+                                <segments>
+                                    <segment title="TA的"/>
+                                    <segment title="共同"/>
+                                    <segment title="我的"/>
+                                </segments>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hfl-MB-jKq" customClass="COCategoryView">
+                                <rect key="frame" x="10" y="72" width="294" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2jI-oB-Fl9" customClass="COCategoryView">
+                                <rect key="frame" x="10" y="110" width="294" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQ0-gX-4CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719" y="582"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vYd-mU-2GB">
+            <objects>
+                <viewController id="0fH-z7-LGv" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fjE-Dw-Wje"/>
+                        <viewControllerLayoutGuide type="bottom" id="H5N-IB-lHN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g2r-9V-7xM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UOp-O0-bjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>
