@@ -11,6 +11,8 @@
 		BF12C41E1B1D9F51005148C6 /* COCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C41D1B1D9F51005148C6 /* COCategoryView.m */; };
 		BF12C4221B1DA2B1005148C6 /* COCategorySingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */; };
 		BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */; };
+		BF12C4271B1EAF05005148C6 /* COCalculationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4261B1EAF05005148C6 /* COCalculationView.m */; };
+		BF12C4291B1EAF19005148C6 /* COCalculationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4281B1EAF19005148C6 /* COCalculationView.xib */; };
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
@@ -59,6 +61,9 @@
 		BF12C4201B1DA2B1005148C6 /* COCategorySingleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCategorySingleView.h; sourceTree = "<group>"; };
 		BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCategorySingleView.m; sourceTree = "<group>"; };
 		BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COCategorySingleView.xib; sourceTree = "<group>"; };
+		BF12C4251B1EAF05005148C6 /* COCalculationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCalculationView.h; sourceTree = "<group>"; };
+		BF12C4261B1EAF05005148C6 /* COCalculationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCalculationView.m; sourceTree = "<group>"; };
+		BF12C4281B1EAF19005148C6 /* COCalculationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COCalculationView.xib; sourceTree = "<group>"; };
 		BF17DAEF1B0AF67D009DE4AE /* CheckOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DAF31B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -139,6 +144,9 @@
 				BF12C4201B1DA2B1005148C6 /* COCategorySingleView.h */,
 				BF12C4211B1DA2B1005148C6 /* COCategorySingleView.m */,
 				BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */,
+				BF12C4251B1EAF05005148C6 /* COCalculationView.h */,
+				BF12C4261B1EAF05005148C6 /* COCalculationView.m */,
+				BF12C4281B1EAF19005148C6 /* COCalculationView.xib */,
 			);
 			name = Common;
 			path = ..;
@@ -401,6 +409,7 @@
 				BF17DB591B0DE031009DE4AE /* COOrderListLeftCell.xib in Resources */,
 				BF17DB5E1B0DE408009DE4AE /* COOrderListRightCell.xib in Resources */,
 				BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */,
+				BF12C4291B1EAF19005148C6 /* COCalculationView.xib in Resources */,
 				BF17DB541B0DD4D8009DE4AE /* COOrderListTimeCell.xib in Resources */,
 				BF17DB031B0AF67E009DE4AE /* LaunchScreen.xib in Resources */,
 				BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */,
@@ -438,6 +447,7 @@
 				BF17DB5D1B0DE408009DE4AE /* COOrderListRightCell.m in Sources */,
 				BF17DB271B0B1178009DE4AE /* FMDatabase.m in Sources */,
 				BF17DB3F1B0B1797009DE4AE /* DBManager.m in Sources */,
+				BF12C4271B1EAF05005148C6 /* COCalculationView.m in Sources */,
 				BF17DB2B1B0B1178009DE4AE /* FMResultSet.m in Sources */,
 				BF17DB281B0B1178009DE4AE /* FMDatabaseAdditions.m in Sources */,
 				BF17DB481B0C2FBD009DE4AE /* DBManager+CreateDBTable.m in Sources */,
