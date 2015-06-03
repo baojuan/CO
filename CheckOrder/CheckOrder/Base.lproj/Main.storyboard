@@ -102,6 +102,9 @@
                                 <state key="normal" title="关闭">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="closeButtonClick:" destination="vxA-22-MJN" eventType="touchUpInside" id="vhg-d3-nEj"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-dO-Sav">
                                 <rect key="frame" x="65" y="28" width="190" height="29"/>
@@ -119,31 +122,20 @@
                                 <rect key="frame" x="10" y="110" width="294" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chv-iw-3GD" customClass="COCalculationView">
+                                <rect key="frame" x="0.0" y="248" width="320" height="320"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="calculation" destination="Chv-iw-3GD" id="2Ro-5z-gjl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQ0-gX-4CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="719" y="582"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="vYd-mU-2GB">
-            <objects>
-                <viewController id="0fH-z7-LGv" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fjE-Dw-Wje"/>
-                        <viewControllerLayoutGuide type="bottom" id="H5N-IB-lHN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="g2r-9V-7xM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UOp-O0-bjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
 </document>

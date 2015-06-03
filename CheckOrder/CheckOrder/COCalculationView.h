@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface COCalculationView : UIView
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *numberButton;
+@property (weak, nonatomic) IBOutlet UIButton *cleanButton;
+@property (weak, nonatomic) IBOutlet UIButton *pointButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIButton *okButton;
+@property (weak, nonatomic) IBOutlet UIButton *resultButton;
 
 @end
