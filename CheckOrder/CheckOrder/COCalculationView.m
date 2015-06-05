@@ -22,6 +22,7 @@ static NSInteger kOkButtonTag = 106;
 @property (nonatomic, assign) CGFloat sumPrice;
 @property (nonatomic, assign) CGFloat nowInputPrice;
 @property (nonatomic, assign) BOOL havePoint;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 
 @end
 
@@ -36,6 +37,11 @@ static NSInteger kOkButtonTag = 106;
         [self addSubview:containerView];
     }
     return self;
+}
+
+- (void)setCategoryText:(NSString *)text
+{
+    self.categoryLabel.text = text;
 }
 
 - (IBAction)addButtonClick:(id)sender
@@ -129,6 +135,17 @@ static NSInteger kOkButtonTag = 106;
 - (NSString *)priceAddSymbol:(CGFloat)price
 {
     return [NSString stringWithFormat:@"￥%.2f",price];
+}
+- (IBAction)okButtonClick:(id)sender
+{
+    if (self.okButtonHandle) {
+        self.okButtonHandle();
+    }
+}
+
+- (CGFloat)getSumPrice
+{
+    return self.sumPrice;
 }
 
 @end

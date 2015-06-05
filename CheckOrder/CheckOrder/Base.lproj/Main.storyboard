@@ -115,11 +115,11 @@
                                 </segments>
                             </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hfl-MB-jKq" customClass="COCategoryView">
-                                <rect key="frame" x="10" y="72" width="294" height="30"/>
+                                <rect key="frame" x="10" y="72" width="294" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2jI-oB-Fl9" customClass="COCategoryView">
-                                <rect key="frame" x="10" y="110" width="294" height="30"/>
+                                <rect key="frame" x="10" y="125" width="294" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chv-iw-3GD" customClass="COCalculationView">
@@ -131,6 +131,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="calculation" destination="Chv-iw-3GD" id="2Ro-5z-gjl"/>
+                        <outlet property="inCategoryView" destination="Hfl-MB-jKq" id="Fa3-wB-VPT"/>
+                        <outlet property="outCategoryView" destination="2jI-oB-Fl9" id="EDO-dt-Dex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQ0-gX-4CI" userLabel="First Responder" sceneMemberID="firstResponder"/>

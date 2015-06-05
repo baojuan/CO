@@ -17,6 +17,7 @@ static CGFloat ySpace = 5;
 
 @interface COCategoryView ()
 @property (nonatomic, strong) NSMutableArray *singleViewArray;
+@property (nonatomic, copy) NSArray *categoryArray;
 
 @end
 
@@ -26,13 +27,21 @@ static CGFloat ySpace = 5;
 {
     if (self = [super init]) {
         self.singleViewArray = [[NSMutableArray alloc] init];
+        self.maxWidth = [UIScreen mainScreen].bounds.size.width - 30;
     }
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.singleViewArray = [[NSMutableArray alloc] init];
+    self.maxWidth = [UIScreen mainScreen].bounds.size.width - 30;
+}
+
 - (void)insertIntoCategoryArray:(NSArray *)categoryArray
 {
-    
+    self.categoryArray = categoryArray;
     [self.singleViewArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIView *view = obj;
         [view removeFromSuperview];
@@ -46,7 +55,7 @@ static CGFloat ySpace = 5;
         COCategoryModel *model = obj;
         
         COCategorySingleView *singleView = [[[NSBundle mainBundle] loadNibNamed:@"COCategorySingleView" owner:self options:nil] lastObject];
-        singleView.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",model.icon]];
+        singleView.imageView.image = [UIImage imageNamed:[self iconName:[NSString stringWithFormat:@"%d",model.icon]]];
         singleView.textLabel.text = model.name;
         [singleView.button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         singleView.button.tag = 100 + idx;
@@ -66,10 +75,18 @@ static CGFloat ySpace = 5;
     }];
 }
 
+- (NSString *)iconName:(NSString *)key
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"categoryIcon" ofType:@"plist"];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    return [dict valueForKey:key];
+}
+
 - (void)buttonClick:(UIButton *)button
 {
     if (self.categoryClick) {
-        self.categoryClick(button.tag - 100);
+        COCategoryModel *model = self.categoryArray[button.tag - 100];
+        self.categoryClick(model);
     }
 }
 

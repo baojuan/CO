@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="COCalculationView">
             <connections>
                 <outlet property="addButton" destination="N52-JF-rri" id="uRp-SU-YbZ"/>
+                <outlet property="categoryLabel" destination="Poq-Aq-4rs" id="wLd-Mz-dxR"/>
                 <outlet property="cleanButton" destination="zd6-3U-sIX" id="89s-1J-qLK"/>
                 <outlet property="deleteButton" destination="S1Q-2o-r0e" id="qC2-Ke-Qd0"/>
                 <outlet property="okButton" destination="JyG-9O-M6K" id="5g0-Xe-bPa"/>
@@ -38,6 +39,12 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="￥0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uj0-1X-QMx">
                                     <rect key="frame" x="162" y="0.0" width="150" height="64"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Poq-Aq-4rs">
+                                    <rect key="frame" x="8" y="0.0" width="139" height="64"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
@@ -174,6 +181,9 @@
                         <color key="titleColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="okButtonClick:" destination="-1" eventType="touchUpInside" id="cRz-FM-m02"/>
+                    </connections>
                 </button>
                 <button hidden="YES" opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-HQ-def">
                     <rect key="frame" x="240" y="193" width="80" height="127"/>

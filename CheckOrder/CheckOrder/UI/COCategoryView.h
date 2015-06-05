@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "COCategoryModel.h"
 
 @interface COCategoryView : UIView
 @property (nonatomic, assign)CGFloat maxWidth;
 
-
 - (void)insertIntoCategoryArray:(NSArray *)categoryArray;
-@property (nonatomic, copy)void(^categoryClick)(NSInteger index);
+@property (nonatomic, copy)void(^categoryClick)(COCategoryModel *model);
 
 
 @end

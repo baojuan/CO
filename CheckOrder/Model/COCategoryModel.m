@@ -25,6 +25,9 @@
     if (self.categoryId != -1) {
         return NO;
     }
+    if (self.type != -1) {
+        return NO;
+    }
     return YES;
 }
 - (NSDictionary *)changeModelToDictionary

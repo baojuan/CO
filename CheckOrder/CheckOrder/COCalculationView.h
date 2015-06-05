@@ -16,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet UIButton *resultButton;
-
+- (void)setCategoryText:(NSString *)text;
+@property (nonatomic, copy)void(^okButtonHandle)();
+- (CGFloat)getSumPrice;
 @end

@@ -13,6 +13,7 @@
 		BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4231B1DA2C7005148C6 /* COCategorySingleView.xib */; };
 		BF12C4271B1EAF05005148C6 /* COCalculationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4261B1EAF05005148C6 /* COCalculationView.m */; };
 		BF12C4291B1EAF19005148C6 /* COCalculationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4281B1EAF19005148C6 /* COCalculationView.xib */; };
+		BF12C42B1B215AB2005148C6 /* categoryIcon.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF12C42A1B215AB2005148C6 /* categoryIcon.plist */; };
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		BF12C4251B1EAF05005148C6 /* COCalculationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCalculationView.h; sourceTree = "<group>"; };
 		BF12C4261B1EAF05005148C6 /* COCalculationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCalculationView.m; sourceTree = "<group>"; };
 		BF12C4281B1EAF19005148C6 /* COCalculationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COCalculationView.xib; sourceTree = "<group>"; };
+		BF12C42A1B215AB2005148C6 /* categoryIcon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = categoryIcon.plist; path = ../categoryIcon.plist; sourceTree = "<group>"; };
 		BF17DAEF1B0AF67D009DE4AE /* CheckOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DAF31B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		BF17DAF21B0AF67E009DE4AE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF12C42A1B215AB2005148C6 /* categoryIcon.plist */,
 				BF17DAF31B0AF67E009DE4AE /* Info.plist */,
 				BF17DAF41B0AF67E009DE4AE /* main.m */,
 			);
@@ -412,6 +415,7 @@
 				BF12C4291B1EAF19005148C6 /* COCalculationView.xib in Resources */,
 				BF17DB541B0DD4D8009DE4AE /* COOrderListTimeCell.xib in Resources */,
 				BF17DB031B0AF67E009DE4AE /* LaunchScreen.xib in Resources */,
+				BF12C42B1B215AB2005148C6 /* categoryIcon.plist in Resources */,
 				BF12C4241B1DA2C7005148C6 /* COCategorySingleView.xib in Resources */,
 				BF17DB001B0AF67E009DE4AE /* Images.xcassets in Resources */,
 			);

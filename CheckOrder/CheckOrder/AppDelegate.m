@@ -27,6 +27,8 @@
     
     BOOL success = [[DBManager shareDB] createTable];
     
+    [self createSysCategory];
+    
 //    COCategoryModel *model = [COCategoryModel new];
 //    
 //    model.categoryId = 123;
@@ -84,6 +86,103 @@
     
     
     return YES;
+}
+
+
+- (void)createSysCategory
+{
+    COCategoryModel *model1 = [COCategoryModel new];
+    
+    model1.categoryId = 1;
+    model1.name = @"工资";
+    model1.type = 0;
+    model1.updateTime = 0;
+    model1.icon = 1;
+    
+    [[DBManager shareDB] insertCategoryData:model1];
+    
+    
+    COCategoryModel *model2 = [COCategoryModel new];
+    
+    model2.categoryId = 1;
+    model2.name = @"奖金";
+    model2.type = 0;
+    model2.updateTime = 0;
+    model2.icon = 2;
+    
+    [[DBManager shareDB] insertCategoryData:model2];
+    
+    
+    
+    COCategoryModel *model3 = [COCategoryModel new];
+    
+    model3.categoryId = 1;
+    model3.name = @"用餐";
+    model3.type = 1;
+    model3.updateTime = 0;
+    model3.icon = 3;
+    
+    [[DBManager shareDB] insertCategoryData:model3];
+    
+    
+    
+    COCategoryModel *model4 = [COCategoryModel new];
+    
+    model4.categoryId = 1;
+    model4.name = @"住房";
+    model4.type = 1;
+    model4.updateTime = 0;
+    model4.icon = 4;
+    
+    [[DBManager shareDB] insertCategoryData:model4];
+    
+    
+    
+    COCategoryModel *model5 = [COCategoryModel new];
+    
+    model5.categoryId = 1;
+    model5.name = @"宠物";
+    model5.type = 1;
+    model5.updateTime = 0;
+    model5.icon = 5;
+    
+    [[DBManager shareDB] insertCategoryData:model5];
+    
+    
+    
+    COCategoryModel *model6 = [COCategoryModel new];
+    
+    model6.categoryId = 1;
+    model6.name = @"购物";
+    model6.type = 1;
+    model6.updateTime = 0;
+    model6.icon = 6;
+    
+    [[DBManager shareDB] insertCategoryData:model6];
+    
+    
+    
+    COCategoryModel *model7 = [COCategoryModel new];
+    
+    model7.categoryId = 1;
+    model7.name = @"交通";
+    model7.type = 1;
+    model7.updateTime = 0;
+    model7.icon = 7;
+    
+    [[DBManager shareDB] insertCategoryData:model7];
+    
+    
+    COCategoryModel *model8 = [COCategoryModel new];
+    
+    model8.categoryId = 1;
+    model8.name = @"其他";
+    model8.type = 1;
+    model8.updateTime = 0;
+    model8.icon = 8;
+    
+    [[DBManager shareDB] insertCategoryData:model8];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
