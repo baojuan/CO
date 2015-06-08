@@ -21,6 +21,8 @@
 @property (strong, nonatomic) COCategoryModel * selectedCategory;
 @property (assign, nonatomic) NSInteger orderType;
 @property (copy, nonatomic) NSString *ps;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+
 @end
 
 @implementation COCalculationViewController
@@ -29,7 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.selectedCategory = nil;
-    self.orderType = -1;
+    self.orderType = 1;
+    self.segment.selectedSegmentIndex = 1;
     [self configCategoryView];
     [self configCalculationView];
 }
@@ -72,7 +75,11 @@
         order.month = [self getMonth:now];
         order.day = [self getDay:now];
         order.ps = self.ps;
-        [[DBManager shareDB] insertOrderData:order];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [[DBManager shareDB] insertOrderData:order];
+        });
     };
 }
 
@@ -80,12 +87,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)segmentSelected:(UISegmentedControl *)seg
+{
+    self.orderType = seg.selectedSegmentIndex;
+}
 - (IBAction)closeButtonClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:^{
         ;
     }];
 }
+
 
 - (int)nowTime
 {

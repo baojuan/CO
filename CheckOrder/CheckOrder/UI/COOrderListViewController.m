@@ -128,6 +128,7 @@
     
     [self configViewData];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAddOrderNotification:) name:@"kAddOrderNotification" object:nil];
     
 }
 
@@ -200,4 +201,16 @@
     return 44;
 }
 
+
+#pragma mark - notification
+- (void)handleAddOrderNotification:(NSNotification *)notification
+{
+    COOrderModel *order = (COOrderModel *)notification.object;
+    if (![order isKindOfClass:[COOrderModel class]]) {
+        return;
+    }
+    else {
+        //在dataArray中插入数据
+    }
+}
 @end

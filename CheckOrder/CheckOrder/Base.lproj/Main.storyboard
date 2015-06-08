@@ -113,6 +113,9 @@
                                     <segment title="共同"/>
                                     <segment title="我的"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentSelected:" destination="vxA-22-MJN" eventType="valueChanged" id="WJy-fM-XNF"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hfl-MB-jKq" customClass="COCategoryView">
                                 <rect key="frame" x="10" y="72" width="294" height="45"/>
@@ -133,6 +136,7 @@
                         <outlet property="calculation" destination="Chv-iw-3GD" id="2Ro-5z-gjl"/>
                         <outlet property="inCategoryView" destination="Hfl-MB-jKq" id="Fa3-wB-VPT"/>
                         <outlet property="outCategoryView" destination="2jI-oB-Fl9" id="EDO-dt-Dex"/>
+                        <outlet property="segment" destination="r4m-dO-Sav" id="bTa-M0-xxB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQ0-gX-4CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
