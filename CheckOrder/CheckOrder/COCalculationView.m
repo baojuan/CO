@@ -138,6 +138,7 @@ static NSInteger kOkButtonTag = 106;
 }
 - (IBAction)okButtonClick:(id)sender
 {
+    [self resultButtonClick:nil];
     if (self.okButtonHandle) {
         self.okButtonHandle();
     }

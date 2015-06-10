@@ -104,7 +104,7 @@
     
     COCategoryModel *model2 = [COCategoryModel new];
     
-    model2.categoryId = 1;
+    model2.categoryId = 2;
     model2.name = @"奖金";
     model2.type = 0;
     model2.updateTime = 0;
@@ -116,7 +116,7 @@
     
     COCategoryModel *model3 = [COCategoryModel new];
     
-    model3.categoryId = 1;
+    model3.categoryId = 3;
     model3.name = @"用餐";
     model3.type = 1;
     model3.updateTime = 0;
@@ -128,7 +128,7 @@
     
     COCategoryModel *model4 = [COCategoryModel new];
     
-    model4.categoryId = 1;
+    model4.categoryId = 4;
     model4.name = @"住房";
     model4.type = 1;
     model4.updateTime = 0;
@@ -140,7 +140,7 @@
     
     COCategoryModel *model5 = [COCategoryModel new];
     
-    model5.categoryId = 1;
+    model5.categoryId = 5;
     model5.name = @"宠物";
     model5.type = 1;
     model5.updateTime = 0;
@@ -152,7 +152,7 @@
     
     COCategoryModel *model6 = [COCategoryModel new];
     
-    model6.categoryId = 1;
+    model6.categoryId = 6;
     model6.name = @"购物";
     model6.type = 1;
     model6.updateTime = 0;
@@ -175,7 +175,7 @@
     
     COCategoryModel *model8 = [COCategoryModel new];
     
-    model8.categoryId = 1;
+    model8.categoryId = 7;
     model8.name = @"其他";
     model8.type = 1;
     model8.updateTime = 0;

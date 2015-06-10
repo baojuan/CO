@@ -157,18 +157,20 @@
 - (NSArray *)selectOrderData:(id)obj
 {
     COOrderModel *model = obj;
-    if (![model isKindOfClass:[COOrderModel class]] || [model isEmptyModel]) {
+    if (![model isKindOfClass:[COOrderModel class]]) {
         return nil;
     }
     NSDictionary *selectDict = [model changeModelToDictionary];
     
     NSMutableString *where = [[NSMutableString alloc] init];
     [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
+        if (![key isEqualToString:@"sum"]) {
+            [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
+        }
     }];
     [where deleteCharactersInRange:NSMakeRange([where length] -1, 1)];
     if (where) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COOrder WHERE %@",where];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COOrder WHERE %@ ORDER BY orderTime DESC",where];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
         FMResultSet *result = [self.db executeQuery:sql];
         while (result.next) {

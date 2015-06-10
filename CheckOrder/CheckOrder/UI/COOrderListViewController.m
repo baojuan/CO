@@ -15,6 +15,8 @@
 #import "COOrderModel.h"
 
 #import "CODataCenter.h"
+#import "DBManager.h"
+#import "NSObject+DateChange.h"
 
 @interface COOrderListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -115,7 +117,11 @@
 
 - (void)viewDidLoad
 {
-    [self testData];
+//    [self testData];
+    short month = [self getMonth:[self nowTime]];
+    short year = [self getYear:[self nowTime]];
+
+    [self orderArrayFromDBWithMonth:month year:year];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"COOrderListLeftCell" bundle:nil] forCellReuseIdentifier:@"COOrderListLeftCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"COOrderListRightCell" bundle:nil] forCellReuseIdentifier:@"COOrderListRightCell"];
@@ -146,6 +152,46 @@
     self.sumMoneyLabel.text = [NSString stringWithFormat:@"%.2f",allSumMoney];
 }
 
+- (void)orderArrayFromDBWithMonth:(NSInteger)month year:(NSInteger)year
+{
+    COOrderModel *model = [[COOrderModel alloc] init];
+    model.month = month;
+    model.year = year;
+    NSArray * dbArray = [[DBManager shareDB] selectOrderData:model];
+    NSArray *sectionArray = [self sectionArrayFromDBArray:dbArray];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:sectionArray];
+    [array addObjectsFromArray:self.dataArray];
+    self.dataArray = [NSArray arrayWithArray:array];
+}
+
+- (NSArray *)sectionArrayFromDBArray:(NSArray *)dbArray
+{
+    if ([dbArray count] == 0) {
+        return [NSArray array];
+    }
+    NSMutableArray *result = [NSMutableArray new];
+    __block short key = -1;
+    NSMutableArray *sectionArray = [[NSMutableArray alloc] init];
+    [dbArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        COOrderModel *model = obj;
+        if (model.day != key) {
+            NSString *resultKey = [NSString stringWithFormat:@"%d.%d.%d",model.year,model.month,key];
+            NSArray *resultArray = [NSArray arrayWithArray:sectionArray];
+            [result addObject:@{resultKey:resultArray}];
+            
+            key = model.day;
+            [sectionArray removeAllObjects];
+        }
+        [sectionArray addObject:model];
+    }];
+    //最后一组
+    NSString *resultKey = [NSString stringWithFormat:@"%d",key];
+    NSArray *resultArray = [NSArray arrayWithArray:sectionArray];
+    [result addObject:@{resultKey:resultArray}];
+
+    return result;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.dataArray count];
@@ -163,22 +209,33 @@
     NSDictionary *dict = [self.dataArray objectAtIndex:indexPath.section];
     NSArray *array = [[dict allValues] firstObject];
     COOrderModel *model = [array objectAtIndex:indexPath.row];
-    if (model.type == COOrderTypeMine) {
-        COOrderListRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListRightCell" forIndexPath:indexPath];
-        cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
-        cell.desLabel.text = model.ps;
-        return cell;
+    if ([model isKindOfClass:[COOrderModel class]]) {
+        if (model.type == COOrderTypeMine) {
+            COOrderListRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListRightCell" forIndexPath:indexPath];
+            cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
+            cell.desLabel.text = model.ps;
+            return cell;
+        }
+        else if (model.type == COOrderTypeYours) {
+            COOrderListLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLeftCell" forIndexPath:indexPath];
+            cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
+            cell.desLabel.text = model.ps;
+            return cell;
+        }
+        else if (model.type == COOrderTypeOurs) {
+            COOrderListLRCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLRCell" forIndexPath:indexPath];
+            cell.leftTitleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,[CODataCenter taShouldPay:model.sum]];
+            cell.rightTitleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,[CODataCenter meShouldPay:model.sum]];
+            cell.leftDesLabel.text = cell.rightDesLabel.text = model.ps;
+            return cell;
+        }
+        return nil;
+
     }
-    else if (model.type == COOrderTypeYours) {
-        COOrderListLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLeftCell" forIndexPath:indexPath];
-        cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
-        cell.desLabel.text = model.ps;
-        return cell;
-    }
-    else if (model.type == COOrderTypeOurs) {
-        COOrderListLRCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLRCell" forIndexPath:indexPath];
-        cell.leftTitleLabel.text = cell.rightTitleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,(model.sum / 2.0)];
-        cell.leftDesLabel.text = cell.rightDesLabel.text = model.ps;
+    if ([model isKindOfClass:[NSString class]]) {
+        NSString *string = [array objectAtIndex:indexPath.row];
+        COOrderListTimeCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"COOrderListTimeCell" owner:self options:nil] lastObject];
+        cell.dateLabel.text = string;
         return cell;
     }
     return nil;
@@ -210,7 +267,45 @@
         return;
     }
     else {
-        //在dataArray中插入数据
+        if ([self.dataArray count] > 0) {
+            //在dataArray中插入数据
+            NSDictionary *dict = self.dataArray[0];
+            NSString *key = [NSString stringWithFormat:@"%d.%d.%d",order.year,order.month,order.day];
+            if ([[[dict keyEnumerator] nextObject] isEqualToString:key]) {
+                NSMutableArray *array = [[NSMutableArray alloc] init];
+                [array addObject:order];
+                [array addObjectsFromArray:dict[[dict.keyEnumerator nextObject]]];
+                NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:self.dataArray];
+                [resultArray replaceObjectAtIndex:0 withObject:@{key:array}];
+                self.dataArray = resultArray;
+            }
+        }
+        else {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [array addObject:order];
+            NSString *key = [NSString stringWithFormat:@"%d.%d.%d",order.year,order.month,order.day];
+            NSDictionary *insertDict = @{key:array};
+            NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:self.dataArray];
+            [resultArray insertObject:insertDict atIndex:0];
+            self.dataArray = resultArray;
+
+        }
+        
     }
+    [self.tableView reloadData];
+    
+    if (order.type == COOrderTypeYours) {
+        [CODataCenter changeTaSumMoney:order.sum];
+    }
+    else if (order.type == COOrderTypeMine) {
+        [CODataCenter changeMySumMoney:order.sum];
+    }
+    else if (order.type == COOrderTypeOurs) {
+        [CODataCenter changeTaSumMoney:[CODataCenter taShouldPay:order.sum]];
+        [CODataCenter changeMySumMoney:[CODataCenter meShouldPay:order.sum]];
+    }
+    [self configViewData];
 }
+
+
 @end

@@ -14,6 +14,7 @@
 		BF12C4271B1EAF05005148C6 /* COCalculationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4261B1EAF05005148C6 /* COCalculationView.m */; };
 		BF12C4291B1EAF19005148C6 /* COCalculationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4281B1EAF19005148C6 /* COCalculationView.xib */; };
 		BF12C42B1B215AB2005148C6 /* categoryIcon.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF12C42A1B215AB2005148C6 /* categoryIcon.plist */; };
+		BF12C4301B282223005148C6 /* NSObject+DateChange.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C42F1B282223005148C6 /* NSObject+DateChange.m */; };
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
@@ -66,6 +67,8 @@
 		BF12C4261B1EAF05005148C6 /* COCalculationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCalculationView.m; sourceTree = "<group>"; };
 		BF12C4281B1EAF19005148C6 /* COCalculationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COCalculationView.xib; sourceTree = "<group>"; };
 		BF12C42A1B215AB2005148C6 /* categoryIcon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = categoryIcon.plist; path = ../categoryIcon.plist; sourceTree = "<group>"; };
+		BF12C42E1B282223005148C6 /* NSObject+DateChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+DateChange.h"; path = "common/NSObject+DateChange.h"; sourceTree = "<group>"; };
+		BF12C42F1B282223005148C6 /* NSObject+DateChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+DateChange.m"; path = "common/NSObject+DateChange.m"; sourceTree = "<group>"; };
 		BF17DAEF1B0AF67D009DE4AE /* CheckOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DAF31B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -154,9 +157,19 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		BF12C42D1B2821FD005148C6 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				BF12C42E1B282223005148C6 /* NSObject+DateChange.h */,
+				BF12C42F1B282223005148C6 /* NSObject+DateChange.m */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
 		BF17DAE61B0AF67D009DE4AE = {
 			isa = PBXGroup;
 			children = (
+				BF12C42D1B2821FD005148C6 /* common */,
 				BF17DB1A1B0B1178009DE4AE /* Libs */,
 				BF17DB2F1B0B121E009DE4AE /* Model */,
 				BF17DAF11B0AF67D009DE4AE /* CheckOrder */,
@@ -448,6 +461,7 @@
 				BF17DB2A1B0B1178009DE4AE /* FMDatabaseQueue.m in Sources */,
 				BF17DAF51B0AF67E009DE4AE /* main.m in Sources */,
 				BF17DB351B0B13F9009DE4AE /* COCategoryModel.m in Sources */,
+				BF12C4301B282223005148C6 /* NSObject+DateChange.m in Sources */,
 				BF17DB5D1B0DE408009DE4AE /* COOrderListRightCell.m in Sources */,
 				BF17DB271B0B1178009DE4AE /* FMDatabase.m in Sources */,
 				BF17DB3F1B0B1797009DE4AE /* DBManager.m in Sources */,

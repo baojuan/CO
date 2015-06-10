@@ -88,6 +88,26 @@ static NSString * kCOMyName = @"kCOMyName";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (float)taShouldPay:(float)orderMoney
+{
+    int a = 1;
+    if (orderMoney < 0) {
+        a = -1;
+        orderMoney = a * orderMoney;
+    }
+    
+    if ([CODataCenter coinToWho] != COOrderCoinTypeYours) {
+        return (floor(orderMoney) / 2.0) * a;
+    }
+    else {
+        NSLog(@"%f",floor(orderMoney));
+        return (orderMoney - floor(orderMoney) / 2.0) * a;
+    }
+}
 
++ (float)meShouldPay:(float)orderMoney
+{
+    return orderMoney - [CODataCenter taShouldPay:orderMoney];
+}
 
 @end

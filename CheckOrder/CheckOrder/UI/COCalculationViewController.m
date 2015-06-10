@@ -13,6 +13,7 @@
 #import "COCategoryModel.h"
 #import "COOrderModel.h"
 #import "DBManager.h"
+#import "NSObject+DateChange.h"
 
 @interface COCalculationViewController ()
 @property (weak, nonatomic) IBOutlet COCalculationView *calculation;
@@ -65,6 +66,11 @@
 - (void)configCalculationView
 {
     self.calculation.okButtonHandle = ^(){
+        if (!self.selectedCategory) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择分类" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+            [alert show];
+            return ;
+        }
         COOrderModel *order = [COOrderModel new];
         int now = [self nowTime];
         order.orderId = now;
@@ -75,11 +81,18 @@
         order.month = [self getMonth:now];
         order.day = [self getDay:now];
         order.ps = self.ps;
+        CGFloat sum = [self.calculation getSumPrice];
+        if (order.category.type == 1) {
+            sum = sum * -1;
+        }
+        order.sum = sum;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
         
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [[DBManager shareDB] insertOrderData:order];
-        });
+//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+           [[DBManager shareDB] insertOrderData:order];
+//        });
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
     };
 }
 
@@ -96,46 +109,6 @@
     [self dismissViewControllerAnimated:YES completion:^{
         ;
     }];
-}
-
-
-- (int)nowTime
-{
-    return [[NSDate date] timeIntervalSince1970];
-}
-
-- (int)getDay:(int)time
-{
-    NSString *string = [self changeTimeToString:time];
-    NSArray *array = [string componentsSeparatedByString:@" "];
-    NSArray *resultArray = [array[0] componentsSeparatedByString:@"-"];
-    return [resultArray[2] intValue];
-}
-- (int)getMonth:(int)time
-{
-    NSString *string = [self changeTimeToString:time];
-    NSArray *array = [string componentsSeparatedByString:@" "];
-    NSArray *resultArray = [array[0] componentsSeparatedByString:@"-"];
-    return [resultArray[1] intValue];
-}
-- (int)getYear:(int)time
-{
-    NSString *string = [self changeTimeToString:time];
-    NSArray *array = [string componentsSeparatedByString:@" "];
-    NSArray *resultArray = [array[0] componentsSeparatedByString:@"-"];
-    return [resultArray[0] intValue];
-}
-
-- (NSString *)changeTimeToString:(int)time
-{
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
-    NSLog(@"date:%@",date);
-    return [formatter stringFromDate:date];
 }
 
 /*

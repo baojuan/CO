@@ -37,5 +37,8 @@ typedef NS_ENUM(short, COOrderCoinType)
 + (void)changeMySumMoney:(float)money;
 + (void)changeTaSumMoney:(float)money;
 
+//计算一笔账单每人该付多少钱
++ (float)taShouldPay:(float)orderMoney;
++ (float)meShouldPay:(float)orderMoney;
 
 @end
