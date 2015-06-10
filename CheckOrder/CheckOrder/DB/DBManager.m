@@ -37,9 +37,9 @@
         //定义记录文件全名以及路径的字符串filePath
         NSString *filePath = [documentDirectory stringByAppendingPathComponent:dbName];
         
-#warning 测试代码
-        [fileManager removeItemAtPath:filePath error:nil];
-#pragma -
+//#warning 测试代码
+//        [fileManager removeItemAtPath:filePath error:nil];
+//#pragma -
         
         //查找文件，如果不存在，就创建一个文件
         if (![fileManager fileExistsAtPath:filePath]) {
@@ -101,9 +101,11 @@
     NSDictionary *selectDict = [model changeModelToDictionary];
     NSMutableString *where = [[NSMutableString alloc] init];
     [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
+        [where appendString:[NSString stringWithFormat:@"%@=%@ and ",key,obj]];
     }];
-    [where deleteCharactersInRange:NSMakeRange([where length] -1, 1)];
+    if (where.length > 0) {
+        [where deleteCharactersInRange:NSMakeRange([where length] -5, 5)];
+    }
     if (where) {
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COCategory WHERE %@",where];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
@@ -129,7 +131,8 @@
     COOrderModel *model = obj;
     if ([model isKindOfClass:[COOrderModel class]]) {
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO COOrder (orderId, category, sum, orderTime, updateTime, day, month, year, type, ps) VALUES (%d, %d, %f, %d, %d, %d, %hd, %hd, %hd, '%@')",model.orderId,model.category.categoryId, model.sum, model.orderTime, model.updateTime, model.day, model.month, model.year, model.type, model.ps];
-        return [self.db executeUpdate:sql];
+        BOOL result = [self.db executeUpdate:sql];
+        return result;
     }
     return NO;
 }
@@ -165,10 +168,12 @@
     NSMutableString *where = [[NSMutableString alloc] init];
     [selectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (![key isEqualToString:@"sum"]) {
-            [where appendString:[NSString stringWithFormat:@"%@=%@&",key,obj]];
+            [where appendString:[NSString stringWithFormat:@"%@=%@ and ",key,obj]];
         }
     }];
-    [where deleteCharactersInRange:NSMakeRange([where length] -1, 1)];
+    if (where.length > 0) {
+        [where deleteCharactersInRange:NSMakeRange([where length] -5, 5)];
+    }
     if (where) {
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM COOrder WHERE %@ ORDER BY orderTime DESC",where];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
@@ -187,6 +192,9 @@
             model.year = [result intForColumn:@"year"];
             model.type = [result intForColumn:@"type"];
             model.ps = [result stringForColumn:@"ps"];
+            if (model.ps.length == 0) {
+                model.ps = @"";
+            }
             [resultArray addObject:model];
         }
         return resultArray;
