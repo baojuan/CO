@@ -11,7 +11,6 @@
 #import "COCategoryView.h"
 #import "DBManager.h"
 #import "COCategoryModel.h"
-#import "COOrderModel.h"
 #import "DBManager.h"
 #import "NSObject+DateChange.h"
 
@@ -31,12 +30,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.selectedCategory = nil;
-    self.orderType = 1;
-    self.ps = @"";
-    self.segment.selectedSegmentIndex = 1;
+    
+    self.selectedCategory = self.updateOrder.category;
+    self.orderType = self.updateOrder.type;
+    self.ps = self.updateOrder.ps;
+    self.segment.selectedSegmentIndex = self.orderType;
     [self configCategoryView];
     [self configCalculationView];
+    
+    
+    if (self.updateOrder) {
+        if (self.selectedCategory.type == 0) {
+            [self.calculation setCategoryText:self.selectedCategory.name];
+        }
+        else {
+            [self.calculation setCategoryText:self.selectedCategory.name];
+        }
+        [self.calculation sumPrice:fabs(self.updateOrder.sum)];
+    }
+
 }
 
 
@@ -72,26 +84,56 @@
             [alert show];
             return ;
         }
-        COOrderModel *order = [COOrderModel new];
-        int now = [self nowTime];
-        order.orderId = now;
-        order.category = self.selectedCategory;
-        order.orderTime = now;
-        order.type = self.orderType;
-        order.year = [self getYear:now];
-        order.month = [self getMonth:now];
-        order.day = [self getDay:now];
-        order.ps = self.ps;
-        CGFloat sum = [self.calculation getSumPrice];
-        if (order.category.type == 1) {
-            sum = sum * -1;
+        if (!self.updateOrder) {
+            COOrderModel *order = [COOrderModel new];
+            int now = [self nowTime];
+            order.orderId = now;
+            order.category = self.selectedCategory;
+            order.orderTime = now;
+            order.type = self.orderType;
+            order.year = [self getYear:now];
+            order.month = [self getMonth:now];
+            order.day = [self getDay:now];
+            if (self.ps == nil) {
+                self.ps = @"";
+            }
+            order.ps = self.ps;
+            CGFloat sum = [self.calculation getSumPrice];
+            if (order.category.type == 1) {
+                sum = sum * -1;
+            }
+            order.sum = sum;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[DBManager shareDB] insertOrderData:order];
+            });
         }
-        order.sum = sum;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
-        
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-           [[DBManager shareDB] insertOrderData:order];
-        });
+        else {
+            COOrderModel *order = [COOrderModel new];
+            order.orderId = self.updateOrder.orderId;
+            order.category = self.selectedCategory;
+            order.orderTime = self.updateOrder.orderTime;
+            order.type = self.orderType;
+            order.year = self.updateOrder.year;
+            order.month = self.updateOrder.month;
+            order.day = self.updateOrder.day;
+            if (self.ps == nil) {
+                self.ps = @"";
+            }
+            order.ps = self.ps;
+            CGFloat sum = [self.calculation getSumPrice];
+            if (order.category.type == 1) {
+                sum = sum * -1;
+            }
+            order.sum = sum;
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kUpdateOrderNotification" object:order];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[DBManager shareDB] updateOrderData:order];
+            });
+        }
         
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -108,7 +150,7 @@
 - (IBAction)closeButtonClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUpdateOrderNotification" object:nil];
     }];
 }
 - (IBAction)psButtonClick:(id)sender

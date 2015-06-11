@@ -86,7 +86,7 @@
         <!--Calculation View Controller-->
         <scene sceneID="ysD-NK-AEs">
             <objects>
-                <viewController id="vxA-22-MJN" customClass="COCalculationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="COCalculationViewController" id="vxA-22-MJN" customClass="COCalculationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ubq-BZ-DzI"/>
                         <viewControllerLayoutGuide type="bottom" id="Jjk-fr-qcF"/>

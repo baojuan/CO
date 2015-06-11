@@ -32,10 +32,34 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43E-B3-uLJ">
+                        <rect key="frame" x="290" y="11" width="30" height="26"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <state key="normal" title="删除">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteButtonClilck:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vrj-OH-TEO"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIL-rw-Dnj">
+                        <rect key="frame" x="0.0" y="11" width="30" height="26"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <state key="normal" title="编辑">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="editButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ujn-Ux-cOY"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="deleteButton" destination="43E-B3-uLJ" id="8Jc-Oq-kJh"/>
                 <outlet property="desLabel" destination="b3f-eA-7h1" id="ZXA-Oh-cVO"/>
+                <outlet property="editButton" destination="UIL-rw-Dnj" id="zxM-we-edu"/>
                 <outlet property="iconImageView" destination="k6q-va-GIr" id="wWN-BE-yKc"/>
                 <outlet property="titleLabel" destination="brK-a2-DM4" id="BCf-6W-d8l"/>
             </connections>

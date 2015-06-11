@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "COOrderModel.h"
 @interface COCalculationViewController : UIViewController
-
+@property  (nonatomic, strong) COOrderModel *updateOrder;
 @end

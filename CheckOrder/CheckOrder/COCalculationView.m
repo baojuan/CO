@@ -149,4 +149,9 @@ static NSInteger kOkButtonTag = 106;
     return self.sumPrice;
 }
 
+- (void)sumPrice:(float)sum
+{
+    self.sumPrice = sum;
+    [self resultButtonClick:nil];
+}
 @end

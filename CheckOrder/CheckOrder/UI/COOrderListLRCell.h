@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "COOrderCell.h"
 
-@interface COOrderListLRCell : UITableViewCell
+@interface COOrderListLRCell : COOrderCell
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *leftTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftDesLabel;

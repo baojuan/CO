@@ -17,6 +17,7 @@
 		BF12C4301B282223005148C6 /* NSObject+DateChange.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C42F1B282223005148C6 /* NSObject+DateChange.m */; };
 		BF12C4351B2932A5005148C6 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4331B2932A5005148C6 /* SettingViewController.m */; };
 		BF12C4361B2932A5005148C6 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF12C4341B2932A5005148C6 /* SettingViewController.xib */; };
+		BF12C4391B296C3E005148C6 /* COOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12C4381B296C3E005148C6 /* COOrderCell.m */; };
 		BF17DAF51B0AF67E009DE4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF41B0AF67E009DE4AE /* main.m */; };
 		BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DAF71B0AF67E009DE4AE /* AppDelegate.m */; };
 		BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF17DAFC1B0AF67E009DE4AE /* Main.storyboard */; };
@@ -74,6 +75,8 @@
 		BF12C4321B2932A5005148C6 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		BF12C4331B2932A5005148C6 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		BF12C4341B2932A5005148C6 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		BF12C4371B296C3E005148C6 /* COOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COOrderCell.h; sourceTree = "<group>"; };
+		BF12C4381B296C3E005148C6 /* COOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COOrderCell.m; sourceTree = "<group>"; };
 		BF17DAEF1B0AF67D009DE4AE /* CheckOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF17DAF31B0AF67E009DE4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF17DAF41B0AF67E009DE4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -343,6 +346,8 @@
 				BF17DB5F1B0DE5C1009DE4AE /* COOrderListLRCell.h */,
 				BF17DB601B0DE5C1009DE4AE /* COOrderListLRCell.m */,
 				BF17DB611B0DE5C1009DE4AE /* COOrderListLRCell.xib */,
+				BF12C4371B296C3E005148C6 /* COOrderCell.h */,
+				BF12C4381B296C3E005148C6 /* COOrderCell.m */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 				BF17DB281B0B1178009DE4AE /* FMDatabaseAdditions.m in Sources */,
 				BF17DB481B0C2FBD009DE4AE /* DBManager+CreateDBTable.m in Sources */,
 				BF17DB321B0B121E009DE4AE /* COModel.m in Sources */,
+				BF12C4391B296C3E005148C6 /* COOrderCell.m in Sources */,
 				BF12C41A1B1D9D30005148C6 /* COCalculationViewController.m in Sources */,
 				BF12C4351B2932A5005148C6 /* SettingViewController.m in Sources */,
 			);

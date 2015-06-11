@@ -19,4 +19,5 @@
 - (void)setCategoryText:(NSString *)text;
 @property (nonatomic, copy)void(^okButtonHandle)();
 - (CGFloat)getSumPrice;
+- (void)sumPrice:(float)sum;
 @end

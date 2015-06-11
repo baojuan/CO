@@ -8,6 +8,10 @@
 
 #import "COOrderListRightCell.h"
 
+@interface COOrderListRightCell ()
+
+@end
+
 @implementation COOrderListRightCell
 
 - (void)awakeFromNib {

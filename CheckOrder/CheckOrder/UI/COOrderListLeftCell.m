@@ -8,6 +8,10 @@
 
 #import "COOrderListLeftCell.h"
 
+@interface COOrderListLeftCell ()
+
+@end
+
 @implementation COOrderListLeftCell
 
 - (void)awakeFromNib {
@@ -19,5 +23,8 @@
 
     // Configure the view for the selected state
 }
+
+
+
 
 @end

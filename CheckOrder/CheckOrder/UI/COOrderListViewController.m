@@ -17,6 +17,8 @@
 #import "CODataCenter.h"
 #import "DBManager.h"
 #import "NSObject+DateChange.h"
+#import "COCalculationViewController.h"
+
 
 @interface COOrderListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -26,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *taNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *myNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sumMoneyLabel;
+
+@property (nonatomic, strong)  NSIndexPath *editIndexPath;
 
 @end
 
@@ -135,7 +139,8 @@
     [self configViewData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAddOrderNotification:) name:@"kAddOrderNotification" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUpdateOrderNotification:) name:@"kUpdateOrderNotification" object:nil];
+
 }
 
 - (void)configViewData
@@ -194,6 +199,8 @@
     return result;
 }
 
+#pragma mark - tableview delegate&datasource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.dataArray count];
@@ -211,21 +218,67 @@
     NSDictionary *dict = [self.dataArray objectAtIndex:indexPath.section];
     NSArray *array = [[dict allValues] firstObject];
     COOrderModel *model = [array objectAtIndex:indexPath.row];
+    void(^editBlock)(void) = ^(){
+        
+        COCalculationViewController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"COCalculationViewController"];
+        controller.updateOrder = model;
+        [self presentViewController:controller animated:YES completion:^{
+            [self.tableView deselectRowAtIndexPath:self.editIndexPath animated:NO];
+        }];
+    };
+    
+    void(^deleteBlock)(void) = ^(){
+        
+        model.sum *= -1;
+        [self changeMoneyData:model];
+        [self configViewData];
+        
+        NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:self.dataArray];
+        NSDictionary *resultDict = [resultArray objectAtIndex:self.editIndexPath.section];
+        NSString *key = [[resultDict allKeys] firstObject];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[[resultDict allValues] firstObject]];
+
+        [array removeObject:model];
+        if ([array count] > 0) {
+            [resultArray replaceObjectAtIndex:indexPath.section withObject:@{key:array}];
+        }
+        else {
+            [resultArray removeObject:resultDict];
+        }
+        self.dataArray = [NSArray arrayWithArray:resultArray];
+        self.editIndexPath = nil;
+        [self.tableView reloadData];
+        [self.tableView deselectRowAtIndexPath:self.editIndexPath animated:NO];
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [[DBManager shareDB] deleteOrderData:model];
+        });
+    };
+
     if ([model isKindOfClass:[COOrderModel class]]) {
         if (model.type == COOrderTypeMine) {
             COOrderListRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListRightCell" forIndexPath:indexPath];
+            cell.selectedCell = NO;
+            cell.editHandler =  editBlock;
+            cell.deleteHandler = deleteBlock;
             cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
             cell.desLabel.text = model.ps;
             return cell;
         }
         else if (model.type == COOrderTypeYours) {
             COOrderListLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLeftCell" forIndexPath:indexPath];
+            cell.selectedCell = NO;
+            cell.editHandler =  editBlock;
+            cell.deleteHandler = deleteBlock;
             cell.titleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,model.sum];
             cell.desLabel.text = model.ps;
             return cell;
         }
         else if (model.type == COOrderTypeOurs) {
             COOrderListLRCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COOrderListLRCell" forIndexPath:indexPath];
+            cell.selectedCell = NO;
+            cell.editHandler =  editBlock;
+            cell.deleteHandler = deleteBlock;
             cell.leftTitleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,[CODataCenter taShouldPay:model.sum]];
             cell.rightTitleLabel.text = [NSString stringWithFormat:@"%@ %.2f",model.category.name,[CODataCenter meShouldPay:model.sum]];
             cell.leftDesLabel.text = cell.rightDesLabel.text = model.ps;
@@ -260,6 +313,27 @@
     return 44;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.editIndexPath == indexPath) {
+        return;
+    }
+    [self.tableView deselectRowAtIndexPath:self.editIndexPath animated:NO];
+    self.editIndexPath = indexPath;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[COOrderCell class]]) {
+        ((COOrderCell*)cell).selectedCell = YES;
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    COOrderCell *cell = (COOrderCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[COOrderCell class]]) {
+        cell.selectedCell = NO;
+    }
+}
 
 #pragma mark - notification
 - (void)handleAddOrderNotification:(NSNotification *)notification
@@ -296,6 +370,57 @@
     }
     [self.tableView reloadData];
     
+    [self changeMoneyData:order];
+    [self configViewData];
+}
+
+
+- (void)handleUpdateOrderNotification:(NSNotification *)notification
+{
+    COOrderModel *order = (COOrderModel *)notification.object;
+    if (order == nil) {
+        self.editIndexPath = nil;
+        [self.tableView reloadData];
+        return;
+    }
+    if (![order isKindOfClass:[COOrderModel class]]) {
+        self.editIndexPath = nil;
+        [self.tableView reloadData];
+        return;
+    }
+    else {
+        
+        NSDictionary *dict = [self.dataArray objectAtIndex:self.editIndexPath.section];
+        NSArray *tempArray = [[dict allValues] firstObject];
+        COOrderModel *model = [tempArray objectAtIndex:self.editIndexPath.row];
+        
+        //减掉原来的钱数
+        model.sum *= -1;
+        [self changeMoneyData:model];
+
+        NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:self.dataArray];
+        NSDictionary *resultDict = [resultArray objectAtIndex:self.editIndexPath.section];
+        NSString *key = [[resultDict allKeys] firstObject];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[[resultDict allValues] firstObject]];
+        [array replaceObjectAtIndex:self.editIndexPath.row withObject:order];
+        if ([array count] > 0) {
+            [resultArray replaceObjectAtIndex:self.editIndexPath.section withObject:@{key:array}];
+        }
+        else {
+            [resultArray removeObject:array];
+        }
+        self.dataArray = [NSArray arrayWithArray:resultArray];
+    }
+    
+    self.editIndexPath = nil;
+    [self.tableView reloadData];
+    
+    [self changeMoneyData:order];
+    [self configViewData];
+}
+
+- (void)changeMoneyData:(COOrderModel *)order
+{
     if (order.type == COOrderTypeYours) {
         [CODataCenter changeTaSumMoney:order.sum];
     }
@@ -306,8 +431,7 @@
         [CODataCenter changeTaSumMoney:[CODataCenter taShouldPay:order.sum]];
         [CODataCenter changeMySumMoney:[CODataCenter meShouldPay:order.sum]];
     }
-    [self configViewData];
-}
 
+}
 
 @end
