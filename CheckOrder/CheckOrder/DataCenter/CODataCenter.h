@@ -25,6 +25,9 @@ typedef NS_ENUM(short, COOrderCoinType)
 
 @interface CODataCenter : NSObject
 
++ (BOOL)isFirstOpenApp;
++ (void)firstOpenApp;
+
 + (void)settingApp:(COAPPSetting *)setting;
 
 + (COOrderCoinType)coinToWho;

@@ -8,6 +8,8 @@
 
 #import "CODataCenter.h"
 
+static NSString * kCOFirstInApp = @"kCOFirstInApp";
+
 static NSString * kCOCoinToWho = @"kCOCoinToWho";
 static NSString * kCOTaMoney = @"kCOTaMoney";
 static NSString * kCOMyMoney = @"kCOMyMoney";
@@ -33,6 +35,16 @@ static NSString * kCOMyName = @"kCOMyName";
 
 
 @implementation CODataCenter
+
++ (BOOL)isFirstOpenApp
+{
+    return ![[[NSUserDefaults standardUserDefaults] valueForKey:kCOFirstInApp] boolValue];
+}
+
++ (void)firstOpenApp
+{
+    [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:kCOFirstInApp];
+}
 
 + (void)settingApp:(COAPPSetting *)setting
 {

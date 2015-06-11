@@ -33,6 +33,7 @@
     // Do any additional setup after loading the view from its nib.
     self.selectedCategory = nil;
     self.orderType = 1;
+    self.ps = @"";
     self.segment.selectedSegmentIndex = 1;
     [self configCategoryView];
     [self configCalculationView];
@@ -88,9 +89,9 @@
         order.sum = sum;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
         
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
            [[DBManager shareDB] insertOrderData:order];
-//        });
+        });
         
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -107,6 +108,26 @@
 - (IBAction)closeButtonClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:^{
+        ;
+    }];
+}
+- (IBAction)psButtonClick:(id)sender
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"备注" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"备注";
+        textField.text = self.ps;
+    }];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *field = alert.textFields[0];
+        self.ps = field.text;
+        [alert dismissViewControllerAnimated:YES completion:^{
+            ;
+        }];
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
         ;
     }];
 }

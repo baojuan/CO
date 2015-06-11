@@ -12,6 +12,9 @@
 
 #import "COCategoryModel.h"
 #import "COOrderModel.h"
+#import "SettingViewController.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -22,12 +25,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [CODataCenter settingApp:[COAPPSetting new]];
+    if ([CODataCenter isFirstOpenApp]) {
+        UIViewController *rootViewController = self.window.rootViewController;
+        SettingViewController *controller = [[SettingViewController alloc] init];
+        controller.finishBlock = ^(COAPPSetting *setting) {
+            [CODataCenter settingApp:setting];
+            [[DBManager shareDB] createTable];
+            [self createSysCategory];
+            [CODataCenter firstOpenApp];
+            self.window.rootViewController = rootViewController;
+        };
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        self.window.rootViewController = nav;
+    }
     
     
-    BOOL success = [[DBManager shareDB] createTable];
-    
-    [self createSysCategory];
     
 //    COCategoryModel *model = [COCategoryModel new];
 //    

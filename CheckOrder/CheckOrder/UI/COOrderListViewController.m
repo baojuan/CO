@@ -175,17 +175,19 @@
     [dbArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         COOrderModel *model = obj;
         if (model.day != key) {
-            NSString *resultKey = [NSString stringWithFormat:@"%d.%d.%d",model.year,model.month,key];
-            NSArray *resultArray = [NSArray arrayWithArray:sectionArray];
-            [result addObject:@{resultKey:resultArray}];
-            
+            if (key != -1) {
+                NSString *resultKey = [NSString stringWithFormat:@"%d.%d.%d",model.year,model.month,key];
+                NSArray *resultArray = [NSArray arrayWithArray:sectionArray];
+                [result addObject:@{resultKey:resultArray}];
+            }
             key = model.day;
             [sectionArray removeAllObjects];
         }
         [sectionArray addObject:model];
     }];
     //最后一组
-    NSString *resultKey = [NSString stringWithFormat:@"%d",key];
+    COOrderModel *lastOrder = [dbArray lastObject];
+    NSString *resultKey = [NSString stringWithFormat:@"%d.%d.%d",lastOrder.year,lastOrder.month,lastOrder.day];
     NSArray *resultArray = [NSArray arrayWithArray:sectionArray];
     [result addObject:@{resultKey:resultArray}];
 
