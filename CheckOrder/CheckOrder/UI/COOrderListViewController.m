@@ -355,6 +355,13 @@
                 [resultArray replaceObjectAtIndex:0 withObject:@{key:array}];
                 self.dataArray = resultArray;
             }
+            else {
+                NSMutableArray *array = [[NSMutableArray alloc] init];
+                [array addObject:order];
+                NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:self.dataArray];
+                [resultArray insertObject:@{key:array} atIndex:0];
+                self.dataArray = resultArray;
+            }
         }
         else {
             NSMutableArray *array = [[NSMutableArray alloc] init];
