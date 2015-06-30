@@ -46,6 +46,9 @@
 		BF17DB621B0DE5C1009DE4AE /* COOrderListLRCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB601B0DE5C1009DE4AE /* COOrderListLRCell.m */; };
 		BF17DB631B0DE5C1009DE4AE /* COOrderListLRCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF17DB611B0DE5C1009DE4AE /* COOrderListLRCell.xib */; };
 		BF17DB6B1B0ED84B009DE4AE /* CODataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */; };
+		BFDD052E1B42834700D7E950 /* COMonthStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDD052D1B42834700D7E950 /* COMonthStatisticsViewController.m */; };
+		BFDD05341B4291C200D7E950 /* COMonthStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDD05321B4291C200D7E950 /* COMonthStatisticsCell.m */; };
+		BFDD05351B4291C200D7E950 /* COMonthStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFDD05331B4291C200D7E950 /* COMonthStatisticsCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +130,11 @@
 		BF17DB611B0DE5C1009DE4AE /* COOrderListLRCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COOrderListLRCell.xib; sourceTree = "<group>"; };
 		BF17DB691B0ED84B009DE4AE /* CODataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CODataCenter.h; sourceTree = "<group>"; };
 		BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODataCenter.m; sourceTree = "<group>"; };
+		BFDD052C1B42834700D7E950 /* COMonthStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMonthStatisticsViewController.h; sourceTree = "<group>"; };
+		BFDD052D1B42834700D7E950 /* COMonthStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMonthStatisticsViewController.m; sourceTree = "<group>"; };
+		BFDD05311B4291C200D7E950 /* COMonthStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COMonthStatisticsCell.h; sourceTree = "<group>"; };
+		BFDD05321B4291C200D7E950 /* COMonthStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COMonthStatisticsCell.m; sourceTree = "<group>"; };
+		BFDD05331B4291C200D7E950 /* COMonthStatisticsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COMonthStatisticsCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +323,7 @@
 				BF12C4311B29328C005148C6 /* FirstSetting */,
 				BF12C41F1B1D9F56005148C6 /* Common */,
 				BF17DB4E1B0DCCBA009DE4AE /* OrderList */,
+				BFDD052F1B42834C00D7E950 /* Statistics */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -359,6 +368,26 @@
 				BF17DB6A1B0ED84B009DE4AE /* CODataCenter.m */,
 			);
 			path = DataCenter;
+			sourceTree = "<group>";
+		};
+		BFDD052F1B42834C00D7E950 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				BFDD05301B42904400D7E950 /* View */,
+				BFDD052C1B42834700D7E950 /* COMonthStatisticsViewController.h */,
+				BFDD052D1B42834700D7E950 /* COMonthStatisticsViewController.m */,
+			);
+			name = Statistics;
+			sourceTree = "<group>";
+		};
+		BFDD05301B42904400D7E950 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BFDD05311B4291C200D7E950 /* COMonthStatisticsCell.h */,
+				BFDD05321B4291C200D7E950 /* COMonthStatisticsCell.m */,
+				BFDD05331B4291C200D7E950 /* COMonthStatisticsCell.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF17DB631B0DE5C1009DE4AE /* COOrderListLRCell.xib in Resources */,
+				BFDD05351B4291C200D7E950 /* COMonthStatisticsCell.xib in Resources */,
 				BF17DB591B0DE031009DE4AE /* COOrderListLeftCell.xib in Resources */,
 				BF17DB5E1B0DE408009DE4AE /* COOrderListRightCell.xib in Resources */,
 				BF17DAFE1B0AF67E009DE4AE /* Main.storyboard in Resources */,
@@ -478,6 +508,8 @@
 				BF17DB291B0B1178009DE4AE /* FMDatabasePool.m in Sources */,
 				BF17DAF81B0AF67E009DE4AE /* AppDelegate.m in Sources */,
 				BF12C41E1B1D9F51005148C6 /* COCategoryView.m in Sources */,
+				BFDD052E1B42834700D7E950 /* COMonthStatisticsViewController.m in Sources */,
+				BFDD05341B4291C200D7E950 /* COMonthStatisticsCell.m in Sources */,
 				BF17DB521B0DD4C6009DE4AE /* COOrderListTimeCell.m in Sources */,
 				BF17DB381B0B1574009DE4AE /* COOrderModel.m in Sources */,
 				BF17DB2A1B0B1178009DE4AE /* FMDatabaseQueue.m in Sources */,
