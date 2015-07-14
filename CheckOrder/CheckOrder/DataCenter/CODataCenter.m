@@ -164,16 +164,19 @@ static CODataCenter *st_dataCenter = nil;
     NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
     NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthCost];
     NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    NSDictionary *resultDict = [CODataCenter getNowMonthData:now];
     if ([array count] > 0) {
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *dict = obj;
             NSString *date = [dict valueForKey:kCODate];
             if ([date isEqualToString:nowMonth]) {
-                NSDictionary *dict = [CODataCenter getNowMonthData:now];
                 [resultArray replaceObjectAtIndex:idx withObject:dict];
                 *stop = YES;
             }
         }];
+    }
+    else {
+        [resultArray addObject:resultDict];
     }
     [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthCost];
     [[NSUserDefaults standardUserDefaults] synchronize];

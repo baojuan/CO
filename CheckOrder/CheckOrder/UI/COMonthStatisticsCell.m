@@ -7,6 +7,7 @@
 //
 
 #import "COMonthStatisticsCell.h"
+#import "CODataCenter.h"
 
 @interface COMonthStatisticsCell ()
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -21,6 +22,16 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (void)configWithData:(NSDictionary *)dict
+{
+    self.monthLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCODate]];
+    self.myLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOMyMonthCost]];
+    self.taLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOTaMonthCost]];
+    self.ourLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOOurMonthCost]];
+    self.remainLabel.text = @"000";
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

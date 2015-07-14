@@ -8,7 +8,7 @@
 
 #import "COMonthStatisticsViewController.h"
 #import "COMonthStatisticsCell.h"
-
+#import "CODataCenter.h"
 
 
 
@@ -27,6 +27,8 @@
     // Do any additional setup after loading the view.
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self readProportionData];
+    [self.tableView registerNib:[UINib nibWithNibName:@"COMonthStatisticsCell" bundle:nil] forCellReuseIdentifier:@"COMonthStatisticsCell"];
+
 }
 
 - (void)readProportionData
@@ -42,7 +44,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    COMonthStatisticsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"COMonthStatisticsCell"];
+    [cell configWithData:self.dataArray[indexPath.row]];
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
