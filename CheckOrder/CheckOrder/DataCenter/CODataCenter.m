@@ -7,14 +7,34 @@
 //
 
 #import "CODataCenter.h"
+#import "COOrderModel.h"
+#import "NSObject+DateChange.h"
+#import "DBManager.h"
 
-static NSString * kCOFirstInApp = @"kCOFirstInApp";
 
-static NSString * kCOCoinToWho = @"kCOCoinToWho";
-static NSString * kCOTaMoney = @"kCOTaMoney";
-static NSString * kCOMyMoney = @"kCOMyMoney";
-static NSString * kCOTaName = @"kCOTaName";
-static NSString * kCOMyName = @"kCOMyName";
+static NSString * const kCOFirstInApp = @"kCOFirstInApp";
+
+static NSString * const kCOCoinToWho = @"kCOCoinToWho";
+static NSString * const kCOTaMoney = @"kCOTaMoney";
+static NSString * const kCOMyMoney = @"kCOMyMoney";
+static NSString * const kCOTaName = @"kCOTaName";
+static NSString * const kCOMyName = @"kCOMyName";
+
+
+//statistics
+NSString * const kCOMonthCost = @"kCOMonthCost";
+
+
+NSString * const kCODate = @"kCODate";
+
+NSString * const kCOMyMonthCost = @"kCOMyMonthCost";
+NSString * const kCOTaMonthCost = @"kCOTaMonthCost";
+NSString * const kCOOurMonthCost = @"kCOOurMonthCost";
+
+
+static CODataCenter *st_dataCenter = nil;
+
+#define DataCenterShare [CODataCenter share]
 
 @implementation COAPPSetting
 
@@ -35,6 +55,19 @@ static NSString * kCOMyName = @"kCOMyName";
 
 
 @implementation CODataCenter
+
+
++ (COAPPSetting *)share
+{
+    if (!st_dataCenter) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            st_dataCenter = [[CODataCenter alloc] init];
+        });
+    }
+    return st_dataCenter;
+}
+
 
 + (BOOL)isFirstOpenApp
 {
@@ -120,6 +153,62 @@ static NSString * kCOMyName = @"kCOMyName";
 + (float)meShouldPay:(float)orderMoney
 {
     return orderMoney - [CODataCenter taShouldPay:orderMoney];
+}
+
+
+
+
++ (void)calculationMonthCost
+{
+    int now = [DataCenterShare nowTime];
+    NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
+    NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthCost];
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    if ([array count] > 0) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSDictionary *dict = obj;
+            NSString *date = [dict valueForKey:kCODate];
+            if ([date isEqualToString:nowMonth]) {
+                NSDictionary *dict = [CODataCenter getNowMonthData:now];
+                [resultArray replaceObjectAtIndex:idx withObject:dict];
+                *stop = YES;
+            }
+        }];
+    }
+    [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthCost];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
++ (NSDictionary *)getNowMonthData:(int)now
+{
+    NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
+    COOrderModel *model = [COOrderModel new];
+    model.year = [DataCenterShare getYear:now];
+    model.month = [DataCenterShare getMonth:now];
+    
+    NSArray *array = [[DBManager shareDB] selectOrderData:model];
+    __block float myCost = 0;
+    __block float taCost = 0;
+    __block float ourCost = 0;
+
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        COOrderModel *model = obj;
+        if (model.sum < 0) { //只计算消费
+            if (model.type == COOrderTypeYours) {
+                taCost += model.sum;
+            }
+            else if (model.type == COOrderTypeMine) {
+                myCost += model.sum;
+            }
+            else if (model.type == COOrderTypeOurs) {
+                ourCost += model.sum;
+            }
+        }
+    }];
+    NSDictionary *dict = @{kCODate:nowMonth,kCOMyMonthCost:@(myCost),kCOTaMonthCost:@(taCost),kCOOurMonthCost:@(ourCost)};
+    return dict;
+
 }
 
 @end

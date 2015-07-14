@@ -47,5 +47,17 @@
     NSLog(@"date:%@",date);
     return [formatter stringFromDate:date];
 }
+- (NSString *)changeTimeToMonthString:(int)time
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM"];
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    NSLog(@"date:%@",date);
+    return [formatter stringFromDate:date];
+}
+
 
 @end

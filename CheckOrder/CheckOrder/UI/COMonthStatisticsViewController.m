@@ -8,9 +8,15 @@
 
 #import "COMonthStatisticsViewController.h"
 #import "COMonthStatisticsCell.h"
+
+
+
+
+
+
 @interface COMonthStatisticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *dataArray;
+@property (copy, nonatomic) NSArray *dataArray;
 
 @end
 
@@ -19,7 +25,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self readProportionData];
 }
+
+- (void)readProportionData
+{
+    NSArray *cost = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthCost];
+    self.dataArray = cost;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

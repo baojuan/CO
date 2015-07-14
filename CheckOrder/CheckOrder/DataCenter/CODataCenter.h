@@ -13,6 +13,17 @@ typedef NS_ENUM(short, COOrderCoinType)
     COOrderCoinTypeMine = 1,
 };
 
+//statistics
+extern NSString * const kCOMonthCost;
+extern NSString * const kCODate;
+extern NSString * const kCOMyMonthCost;
+extern NSString * const kCOTaMonthCost;
+extern NSString * const kCOOurMonthCost;
+
+
+
+
+
 @interface COAPPSetting : NSObject
 @property (nonatomic, assign) COOrderCoinType coinToWho;
 @property (nonatomic, copy) NSString * taName;
@@ -43,5 +54,8 @@ typedef NS_ENUM(short, COOrderCoinType)
 //计算一笔账单每人该付多少钱
 + (float)taShouldPay:(float)orderMoney;
 + (float)meShouldPay:(float)orderMoney;
+
+//消费统计
++ (void)calculationMonthCost;
 
 @end

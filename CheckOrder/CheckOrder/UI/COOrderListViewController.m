@@ -252,6 +252,7 @@
         
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [[DBManager shareDB] deleteOrderData:model];
+            [CODataCenter calculationMonthCost];
         });
     };
 
@@ -379,6 +380,9 @@
     
     [self changeMoneyData:order];
     [self configViewData];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [CODataCenter calculationMonthCost];
+    });
 }
 
 
@@ -424,6 +428,10 @@
     
     [self changeMoneyData:order];
     [self configViewData];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [CODataCenter calculationMonthCost];
+    });
+
 }
 
 - (void)changeMoneyData:(COOrderModel *)order

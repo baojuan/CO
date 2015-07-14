@@ -17,4 +17,7 @@
 
 - (NSString *)changeTimeToString:(int)time;
 
+- (NSString *)changeTimeToMonthString:(int)time;
+
+
 @end
