@@ -18,6 +18,12 @@
 - (NSString *)changeTimeToString:(int)time;
 
 - (NSString *)changeTimeToMonthString:(int)time;
-
-
+/**
+ *  将yyyy-MM-dd 转成时间戳
+ *
+ *  @param string
+ *
+ *  @return 
+ */
+- (int)changeStringToTime:(NSString *)string;
 @end

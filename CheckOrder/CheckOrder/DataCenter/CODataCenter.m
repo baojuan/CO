@@ -30,6 +30,8 @@ NSString * const kCODate = @"kCODate";
 NSString * const kCOMyMonthCost = @"kCOMyMonthCost";
 NSString * const kCOTaMonthCost = @"kCOTaMonthCost";
 NSString * const kCOOurMonthCost = @"kCOOurMonthCost";
+NSString * const kCOMonthLast = @"kCOMonthLast";
+NSString * const kCOMonthAllCost = @"kCOMonthAllCost";
 
 
 static CODataCenter *st_dataCenter = nil;
@@ -57,7 +59,7 @@ static CODataCenter *st_dataCenter = nil;
 @implementation CODataCenter
 
 
-+ (COAPPSetting *)share
++ (CODataCenter *)share
 {
     if (!st_dataCenter) {
         static dispatch_once_t onceToken;
@@ -212,6 +214,115 @@ static CODataCenter *st_dataCenter = nil;
     NSDictionary *dict = @{kCODate:nowMonth,kCOMyMonthCost:@(myCost),kCOTaMonthCost:@(taCost),kCOOurMonthCost:@(ourCost)};
     return dict;
 
+}
+
+
++ (void)calculationMonthLast
+{
+    int now = [DataCenterShare nowTime];
+    NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
+    NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthLast];
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    NSDictionary *resultDict = [CODataCenter getNowMonthLastData:now];
+    if ([array count] > 0) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSDictionary *dict = obj;
+            NSString *date = [dict valueForKey:kCODate];
+            if ([date isEqualToString:nowMonth]) {
+                [resultArray replaceObjectAtIndex:idx withObject:resultDict];
+                *stop = YES;
+            }
+        }];
+    }
+    else {
+        [resultArray addObject:resultDict];
+    }
+    [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthLast];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSDictionary *)getNowMonthLastData:(int)now
+{
+    NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
+    COOrderModel *model = [COOrderModel new];
+    model.year = [DataCenterShare getYear:now];
+    model.month = [DataCenterShare getMonth:now];
+    
+    NSArray *array = [[DBManager shareDB] selectOrderData:model];
+    __block float cost = 0;
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        COOrderModel *model = obj;
+        if (model.sum < 0) { //只计算消费
+            cost += model.sum;
+        }
+    }];
+    NSDictionary *dict = @{kCODate:nowMonth,kCOMonthAllCost:@(cost)};
+    return dict;
+    
+}
+
+/**
+ *  获取某月花销
+ *
+ *  @param month
+ *
+ *  @return
+ */
++ (float)getMonthLast:(NSString *)month
+{
+    NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthLast];
+    __block float cost = 0;
+    if ([array count] > 0) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSDictionary *dict = obj;
+            NSString *date = [dict valueForKey:kCODate];
+            if ([date isEqualToString:month]) {
+                cost = [[dict valueForKey:kCOMonthAllCost] floatValue];
+                *stop = YES;
+
+            }
+        }];
+    }
+    return cost;
+
+}
+
+
++ (void)updateMonthLast:(COOrderModel *)model
+{
+    NSString *nowMonth = [DataCenterShare changeTimeToMonthString:model.orderTime];
+    NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthLast];
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
+    NSDictionary *resultDict = [CODataCenter getNowMonthLastData:model.orderTime];
+    __block NSInteger i = 0;
+    if ([array count] > 0) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSDictionary *dict = obj;
+            NSString *date = [dict valueForKey:kCODate];
+            if ([date isEqualToString:nowMonth]) {
+                [resultArray replaceObjectAtIndex:idx withObject:resultDict];
+                i = idx + 1;
+                *stop = YES;
+            }
+        }];
+    }
+    int year = model.year;
+    int month = model.month + 1;
+    if (month > 12) {
+        year ++;
+        month = 1;
+    }
+    while (i < [array count]) {
+        NSString* string = [NSString stringWithFormat:@"%d-%d-01",year,month];
+        int time = [DataCenterShare changeStringToTime:string];
+        NSDictionary *resultDict = [CODataCenter getNowMonthLastData:time];
+        [resultArray replaceObjectAtIndex:i withObject:resultDict];
+        i ++;
+    }
+    
+    
+    [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthLast];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

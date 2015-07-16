@@ -19,7 +19,12 @@ extern NSString * const kCODate;
 extern NSString * const kCOMyMonthCost;
 extern NSString * const kCOTaMonthCost;
 extern NSString * const kCOOurMonthCost;
+extern NSString * const kCOMonthLast;
 
+
+//statistics
+extern NSString * const kCOMonthLast;
+extern NSString * const kCOMonthAllCost;
 
 
 
@@ -57,5 +62,19 @@ extern NSString * const kCOOurMonthCost;
 
 //消费统计
 + (void)calculationMonthCost;
+//计算当月剩余钱数
++ (void)calculationMonthLast;
+
+//更改某账单后update剩余钱数
++ (void)updateMonthLast:(COOrderModel *)model;
+
+/**
+ *  获取当前月份剩余钱数
+ *
+ *  @param month
+ *
+ *  @return
+ */
++ (float)getMonthLast:(NSString *)month;
 
 @end

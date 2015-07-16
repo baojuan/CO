@@ -59,5 +59,16 @@
     return [formatter stringFromDate:date];
 }
 
+- (int)changeStringToTime:(NSString *)string
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *date = [formatter dateFromString:string];
+    return [date timeIntervalSince1970];
+
+}
 
 @end
