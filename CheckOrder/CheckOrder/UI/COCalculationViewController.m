@@ -103,10 +103,13 @@
                 sum = sum * -1;
             }
             order.sum = sum;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [[DBManager shareDB] insertOrderData:order];
+                if ([[DBManager shareDB] insertOrderData:order]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kAddOrderNotification" object:order];
+                    });
+                }
             });
         }
         else {
@@ -128,10 +131,14 @@
             }
             order.sum = sum;
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kUpdateOrderNotification" object:order];
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [[DBManager shareDB] updateOrderData:order];
+                if ([[DBManager shareDB] updateOrderData:order]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUpdateOrderNotification" object:order];
+                    });
+
+                }
             });
         }
         

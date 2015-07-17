@@ -188,10 +188,6 @@ static CODataCenter *st_dataCenter = nil;
 {
     int now = [DataCenterShare nowTime];
     
-    //计算当月剩余钱数
-    [CODataCenter calculationMonthLast];
-
-    
     NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
     NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthCost];
     NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
@@ -209,7 +205,6 @@ static CODataCenter *st_dataCenter = nil;
     else {
         [resultArray addObject:resultDict];
     }
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCOMonthCost];
     [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthCost];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -218,6 +213,12 @@ static CODataCenter *st_dataCenter = nil;
 + (NSDictionary *)getNowMonthData:(int)now
 {
     NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
+    
+    //计算当月剩余钱数
+    [CODataCenter calculationMonthLast];
+    
+
+    
     COOrderModel *model = [COOrderModel new];
     model.year = [DataCenterShare getYear:now];
     model.month = [DataCenterShare getMonth:now];
@@ -317,8 +318,9 @@ static CODataCenter *st_dataCenter = nil;
             }
         }];
     }
-    return [CODataCenter taOriginMoney] + [CODataCenter myOriginMoney] + cost;
+    float result = [CODataCenter taOriginMoney] + [CODataCenter myOriginMoney] + cost;
 
+    return ceilf(result * 100) / 100;
 }
 
 /**

@@ -28,6 +28,7 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self readProportionData];
     [self.tableView registerNib:[UINib nibWithNibName:@"COMonthStatisticsCell" bundle:nil] forCellReuseIdentifier:@"COMonthStatisticsCell"];
+    [CODataCenter calculationMonthCost];
 
 }
 
