@@ -184,7 +184,7 @@
             COCategoryModel *category = [COCategoryModel new];
             category.categoryId = [result intForColumn:@"category"];
             model.category = [[self selectCategoryData:category] firstObject];
-            model.sum = [result intForColumn:@"sum"];
+            model.sum = [result doubleForColumn:@"sum"];
             model.orderTime = [result intForColumn:@"orderTime"];
             model.updateTime = [result intForColumn:@"updateTime"];
             model.day = [result intForColumn:@"day"];

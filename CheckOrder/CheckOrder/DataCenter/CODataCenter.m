@@ -181,10 +181,17 @@ static CODataCenter *st_dataCenter = nil;
 
 
 
-
+/**
+ *  统计当月花销
+ */
 + (void)calculationMonthCost
 {
     int now = [DataCenterShare nowTime];
+    
+    //计算当月剩余钱数
+    [CODataCenter calculationMonthLast];
+
+    
     NSString *nowMonth = [DataCenterShare changeTimeToMonthString:now];
     NSArray * array = [[NSUserDefaults standardUserDefaults] valueForKey:kCOMonthCost];
     NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
