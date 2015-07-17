@@ -30,7 +30,7 @@
     self.myLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOMyMonthCost]];
     self.taLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOTaMonthCost]];
     self.ourLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOOurMonthCost]];
-    self.remainLabel.text = @"000";
+    self.remainLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:kCOOurMonthLast]];
 
 }
 

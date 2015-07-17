@@ -14,6 +14,10 @@
 
 static NSString * const kCOFirstInApp = @"kCOFirstInApp";
 
+static NSString * const kCOTaOriginMoney = @"kCOTaOriginMoney";
+static NSString * const kCOMyOriginMoney = @"kCOMyOriginMoney";
+
+
 static NSString * const kCOCoinToWho = @"kCOCoinToWho";
 static NSString * const kCOTaMoney = @"kCOTaMoney";
 static NSString * const kCOMyMoney = @"kCOMyMoney";
@@ -30,6 +34,8 @@ NSString * const kCODate = @"kCODate";
 NSString * const kCOMyMonthCost = @"kCOMyMonthCost";
 NSString * const kCOTaMonthCost = @"kCOTaMonthCost";
 NSString * const kCOOurMonthCost = @"kCOOurMonthCost";
+NSString * const kCOOurMonthLast = @"kCOOurMonthLast";
+
 NSString * const kCOMonthLast = @"kCOMonthLast";
 NSString * const kCOMonthAllCost = @"kCOMonthAllCost";
 
@@ -83,6 +89,9 @@ static CODataCenter *st_dataCenter = nil;
 
 + (void)settingApp:(COAPPSetting *)setting
 {
+    [[NSUserDefaults standardUserDefaults] setValue:@(setting.taOriginMoney) forKey:kCOTaOriginMoney];
+    [[NSUserDefaults standardUserDefaults] setValue:@(setting.myOriginMoney) forKey:kCOMyOriginMoney];
+    
     [[NSUserDefaults standardUserDefaults] setValue:@(setting.taOriginMoney) forKey:kCOTaMoney];
     [[NSUserDefaults standardUserDefaults] setValue:@(setting.myOriginMoney) forKey:kCOMyMoney];
     [[NSUserDefaults standardUserDefaults] setValue:@(setting.coinToWho) forKey:kCOCoinToWho];
@@ -114,6 +123,19 @@ static CODataCenter *st_dataCenter = nil;
 + (NSString *)myName
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kCOMyName];
+}
+
+
++ (float)taOriginMoney
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:kCOTaOriginMoney] floatValue];
+
+}
+
++ (float)myOriginMoney
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:kCOMyOriginMoney] floatValue];
+
 }
 
 
@@ -172,7 +194,7 @@ static CODataCenter *st_dataCenter = nil;
             NSDictionary *dict = obj;
             NSString *date = [dict valueForKey:kCODate];
             if ([date isEqualToString:nowMonth]) {
-                [resultArray replaceObjectAtIndex:idx withObject:dict];
+                [resultArray replaceObjectAtIndex:idx withObject:resultDict];
                 *stop = YES;
             }
         }];
@@ -180,6 +202,7 @@ static CODataCenter *st_dataCenter = nil;
     else {
         [resultArray addObject:resultDict];
     }
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCOMonthCost];
     [[NSUserDefaults standardUserDefaults] setValue:resultArray forKey:kCOMonthCost];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -211,12 +234,16 @@ static CODataCenter *st_dataCenter = nil;
             }
         }
     }];
-    NSDictionary *dict = @{kCODate:nowMonth,kCOMyMonthCost:@(myCost),kCOTaMonthCost:@(taCost),kCOOurMonthCost:@(ourCost)};
+    float lastMoney = [CODataCenter getMonthLast:nowMonth];
+    
+    NSDictionary *dict = @{kCODate:nowMonth,kCOMyMonthCost:@(myCost),kCOTaMonthCost:@(taCost),kCOOurMonthCost:@(ourCost),kCOOurMonthLast:@(lastMoney)};
     return dict;
 
 }
 
-
+/**
+ *  当月消费
+ */
 + (void)calculationMonthLast
 {
     int now = [DataCenterShare nowTime];
@@ -262,7 +289,7 @@ static CODataCenter *st_dataCenter = nil;
 }
 
 /**
- *  获取某月花销
+ *  获取某月剩余钱数
  *
  *  @param month
  *
@@ -276,18 +303,22 @@ static CODataCenter *st_dataCenter = nil;
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *dict = obj;
             NSString *date = [dict valueForKey:kCODate];
+            cost += [[dict valueForKey:kCOMonthAllCost] floatValue];
             if ([date isEqualToString:month]) {
-                cost = [[dict valueForKey:kCOMonthAllCost] floatValue];
                 *stop = YES;
 
             }
         }];
     }
-    return cost;
+    return [CODataCenter taOriginMoney] + [CODataCenter myOriginMoney] + cost;
 
 }
 
-
+/**
+ *  更新某月消费
+ *
+ *  @param model
+ */
 + (void)updateMonthLast:(COOrderModel *)model
 {
     NSString *nowMonth = [DataCenterShare changeTimeToMonthString:model.orderTime];

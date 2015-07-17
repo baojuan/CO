@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "COOrderModel.h"
+
 typedef NS_ENUM(short, COOrderCoinType)
 {
     COOrderCoinTypeYours = 0,
@@ -19,7 +21,7 @@ extern NSString * const kCODate;
 extern NSString * const kCOMyMonthCost;
 extern NSString * const kCOTaMonthCost;
 extern NSString * const kCOOurMonthCost;
-extern NSString * const kCOMonthLast;
+extern NSString * const kCOOurMonthLast;
 
 
 //statistics
@@ -62,9 +64,9 @@ extern NSString * const kCOMonthAllCost;
 
 //消费统计
 + (void)calculationMonthCost;
+
 //计算当月剩余钱数
 + (void)calculationMonthLast;
-
 //更改某账单后update剩余钱数
 + (void)updateMonthLast:(COOrderModel *)model;
 
