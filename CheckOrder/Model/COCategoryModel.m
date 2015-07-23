@@ -51,4 +51,27 @@
     return resultDict;
 }
 
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];//不要忘了这个
+    [encoder encodeInt:self.categoryId forKey:@"categoryId"];
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeInt:self.type forKey:@"type"];
+    [encoder encodeInt:self.icon forKey:@"icon"];
+    [encoder encodeInt:self.updateTime forKey:@"updateTime"];
+
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];//不要忘了这个
+    self.categoryId = [aDecoder decodeIntForKey:@"categoryId"];
+    self.name = [aDecoder decodeObjectForKey:@"name"];
+    self.type = [aDecoder decodeIntForKey:@"type"];
+    self.icon = [aDecoder decodeIntForKey:@"icon"];
+    self.updateTime = [aDecoder decodeIntForKey:@"updateTime"];
+    
+    
+    return self;
+}
 @end

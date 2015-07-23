@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface COModel : NSObject
+@interface COModel : NSObject<NSCoding>
 - (BOOL)isEmptyModel;
 - (NSDictionary *)changeModelToDictionary;
 @end

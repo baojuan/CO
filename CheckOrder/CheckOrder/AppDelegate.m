@@ -13,7 +13,7 @@
 #import "COCategoryModel.h"
 #import "COOrderModel.h"
 #import "SettingViewController.h"
-
+#import "COWatchDataCenter.h"
 
 @interface AppDelegate ()
 
@@ -38,6 +38,32 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         self.window.rootViewController = nav;
     }
+    
+    
+    NSUserDefaults *userdefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.checkorder.watch"];
+
+    NSArray *array = [userdefault valueForKey:@"WatchOrders"];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        COOrderModel *order = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+        [[DBManager shareDB] insertOrderData:order];
+        if (order.type == COOrderTypeYours) {
+            [CODataCenter changeTaSumMoney:order.sum];
+        }
+        else if (order.type == COOrderTypeMine) {
+            [CODataCenter changeMySumMoney:order.sum];
+        }
+        else if (order.type == COOrderTypeOurs) {
+            [CODataCenter changeTaSumMoney:[CODataCenter taShouldPay:order.sum]];
+            [CODataCenter changeMySumMoney:[CODataCenter meShouldPay:order.sum]];
+        }
+    }];
+    [userdefault setValue:@[] forKey:@"WatchOrders"];
+    [userdefault synchronize];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [CODataCenter calculationMonthCost];
+    });
     
     
     
@@ -217,6 +243,42 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+-(void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply{
+    NSString *type = [userInfo valueForKey:@"type"];
+    if ([type isEqualToString:@"settings"]) {
+        NSString *taName = [CODataCenter taName];
+        NSString *myName = [CODataCenter myName];
+        float taSumMoney = [CODataCenter taSumMoney];
+        float mySumMoney = [CODataCenter mySumMoney];
+        NSDictionary *dict = @{@"settings":@{@"taName":taName,@"myName":myName,@"taMoney":@(taSumMoney),@"myMoney":@(mySumMoney)}};
+        reply(dict);
+    }
+    else if ([type isEqualToString:@"categorys"]) {
+        COCategoryModel *model = [COCategoryModel new];
+        model.type = 0;
+        NSArray *inArray = [[DBManager shareDB] selectCategoryData:model];
+        model.type = 1;
+        NSArray *outArray = [[DBManager shareDB] selectCategoryData:model];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithArray:inArray];
+        [array addObjectsFromArray:outArray];
+        
+        NSMutableArray *replyArray = [NSMutableArray new];
+        [inArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            COCategoryModel *model = obj;
+            [replyArray addObject:[NSKeyedArchiver archivedDataWithRootObject:model]];
+        }];
+        [outArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            COCategoryModel *model = obj;
+            [replyArray addObject:[NSKeyedArchiver archivedDataWithRootObject:model]];
+        }];
+        
+        NSDictionary *dict = @{@"categorys":replyArray};
+        reply(dict);
+    }
+    reply(@{});
 }
 
 @end

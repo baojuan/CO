@@ -65,4 +65,39 @@
     return resultDict;
 }
 
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];//不要忘了这个
+    [encoder encodeInt:self.orderId forKey:@"orderId"];
+    [encoder encodeObject:self.category forKey:@"category"];
+    [encoder encodeFloat:self.sum forKey:@"sum"];
+    [encoder encodeInt:self.type forKey:@"type"];
+    [encoder encodeInt:self.orderTime forKey:@"orderTime"];
+    [encoder encodeInt:self.updateTime forKey:@"updateTime"];
+    [encoder encodeInt:self.year forKey:@"year"];
+    [encoder encodeInt:self.month forKey:@"month"];
+    [encoder encodeInt:self.day forKey:@"day"];
+    [encoder encodeObject:self.ps forKey:@"ps"];
+
+
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];//不要忘了这个
+    self.orderId = [aDecoder decodeIntForKey:@"orderId"];
+    self.category = [aDecoder decodeObjectForKey:@"category"];
+    self.sum = [aDecoder decodeFloatForKey:@"sum"];
+    self.type = [aDecoder decodeIntForKey:@"type"];
+    self.orderTime = [aDecoder decodeIntForKey:@"orderTime"];
+    self.updateTime = [aDecoder decodeIntForKey:@"updateTime"];
+    self.year = [aDecoder decodeIntForKey:@"year"];
+    self.month = [aDecoder decodeIntForKey:@"month"];
+    self.day = [aDecoder decodeIntForKey:@"day"];
+    self.ps = [aDecoder decodeObjectForKey:@"ps"];
+    
+    return self;
+}
+
+
 @end

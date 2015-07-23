@@ -8,7 +8,7 @@
 
 #import "COModel.h"
 
-@interface COCategoryModel : COModel
+@interface COCategoryModel : COModel<NSCoding>
 @property (nonatomic, assign) int categoryId;
 @property (nonatomic, copy) NSString * name;
 /**

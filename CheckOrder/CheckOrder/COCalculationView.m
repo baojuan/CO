@@ -114,6 +114,9 @@ static NSInteger kOkButtonTag = 106;
         if (a < 0) {
             return;
         }
+        else if (a > 0 && b > 0) {
+            return;
+        }
         else if (a == 0 && b == 0) {
             self.nowInputPrice += number * 0.1;
         }

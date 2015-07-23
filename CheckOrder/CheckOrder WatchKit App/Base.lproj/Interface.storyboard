@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                    <items>
+                        <label width="134" height="27" alignment="left" text="Label" textAlignment="center" id="0Zb-Ey-n5f">
+                            <color key="textColor" red="0.0" green="0.58879009049999997" blue="0.98352693260000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label width="133" height="29" alignment="left" text="Ta的" textAlignment="center" id="fRO-S1-f6S">
+                            <color key="textColor" red="0.0" green="0.58879009046052633" blue="0.98352693256578949" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <separator alignment="left" id="AQ1-wk-2ID">
+                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </separator>
+                        <label width="134" height="27" alignment="left" text="Label" textAlignment="center" id="fzF-XX-rgz">
+                            <color key="textColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label width="133" height="29" alignment="left" text="我的" textAlignment="center" id="hkz-3E-8RW">
+                            <color key="textColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="myMoneyLabel" destination="fzF-XX-rgz" id="Zql-Ny-iqI"/>
+                        <outlet property="myNameLabel" destination="hkz-3E-8RW" id="LrW-xz-eNC"/>
+                        <outlet property="taMoneyLabel" destination="0Zb-Ey-n5f" id="HRs-Kh-8AO"/>
+                        <outlet property="taNameLabel" destination="fRO-S1-f6S" id="qQB-Zo-M8P"/>
+                        <segue destination="yHi-A7-IwO" kind="relationship" relationship="nextPage" id="68c-uL-Hwg"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="235" y="347"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="Igh-8V-L4L">
+            <objects>
+                <controller id="yHi-A7-IwO">
+                    <items>
+                        <group width="1" height="100" alignment="left" id="cEb-K4-ua7">
+                            <items>
+                                <button width="100" height="100" alignment="center" title="+" id="ccD-l1-wNo">
+                                    <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <segue destination="Aek-7F-f56" kind="modal" id="DXL-dQ-jPy"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <label width="136" height="46" alignment="left" text="记账" textAlignment="center" id="Mmj-uN-wBJ">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="478" y="347"/>
+        </scene>
+        <!--Whos Order Controller-->
+        <scene sceneID="Zb7-el-sBK">
+            <objects>
+                <controller id="Aek-7F-f56" customClass="COWhosOrderController">
+                    <items>
+                        <button width="1" height="45" alignment="left" title="Ta的" id="xnE-fB-aaC">
+                            <connections>
+                                <action selector="taButtonClick" destination="Aek-7F-f56" id="xmq-OU-rvz"/>
+                            </connections>
+                        </button>
+                        <button width="1" height="45" alignment="left" title="我的" id="0cV-GI-DCE">
+                            <connections>
+                                <action selector="myButtonClick" destination="Aek-7F-f56" id="pcn-Se-uib"/>
+                            </connections>
+                        </button>
+                        <button width="1" height="45" alignment="left" title="共同的" id="u9v-bv-NE6">
+                            <connections>
+                                <action selector="oursButtonClick" destination="Aek-7F-f56" id="8Mr-3r-i4U"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="myButton" destination="0cV-GI-DCE" id="KWr-eV-jqn"/>
+                        <outlet property="ourButton" destination="u9v-bv-NE6" id="0pP-2d-1Cr"/>
+                        <outlet property="taButton" destination="xnE-fB-aaC" id="QAE-q3-LeE"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="478" y="645"/>
+        </scene>
+        <!--COCategorysController-->
+        <scene sceneID="jJ2-dh-CLX">
+            <objects>
+                <controller identifier="COCategorysController" id="wtz-PB-LdQ" customClass="COCategorysController">
+                    <items>
+                        <table alignment="center" id="8pA-Td-YFr">
+                            <items>
+                                <tableRow identifier="MyTableRowController" id="fLi-1d-ZYA" customClass="COCategorysCell">
+                                    <group key="rootItem" width="1" height="75" alignment="left" id="Wg7-6h-k3E">
+                                        <items>
+                                            <button alignment="center" verticalAlignment="center" id="hTR-B0-sOh">
+                                                <group key="contentGroup" width="55" height="75" alignment="left" layout="vertical" id="294-8G-DGT">
+                                                    <items>
+                                                        <imageView width="55" height="55" alignment="left" image="salary" id="ZOG-zE-0wZ"/>
+                                                        <label width="55" height="18" alignment="left" textAlignment="center" id="KCv-mK-cfd"/>
+                                                    </items>
+                                                </group>
+                                                <connections>
+                                                    <action selector="firstButtonClick" destination="fLi-1d-ZYA" id="UVL-dp-LGA"/>
+                                                </connections>
+                                            </button>
+                                            <button alignment="center" verticalAlignment="center" id="H9Y-6H-ogW">
+                                                <group key="contentGroup" width="55" height="75" alignment="left" layout="vertical" id="fZb-mu-Nvp">
+                                                    <items>
+                                                        <imageView width="55" height="55" alignment="left" image="reward" id="UDi-36-6eD"/>
+                                                        <label width="55" height="18" alignment="left" textAlignment="center" id="FbM-IO-499"/>
+                                                    </items>
+                                                </group>
+                                                <connections>
+                                                    <action selector="secondButtonClick" destination="fLi-1d-ZYA" id="88F-nT-YnE"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="firstButton" destination="hTR-B0-sOh" id="mRO-sw-0oc"/>
+                                        <outlet property="firstImage" destination="ZOG-zE-0wZ" id="Cz5-19-ZWR"/>
+                                        <outlet property="firstTitle" destination="KCv-mK-cfd" id="yme-MS-Pjh"/>
+                                        <outlet property="secondButton" destination="H9Y-6H-ogW" id="VIR-GB-7Gw"/>
+                                        <outlet property="secondImage" destination="UDi-36-6eD" id="dui-lp-s2n"/>
+                                        <outlet property="secondTitle" destination="FbM-IO-499" id="mOe-85-hKV"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="8pA-Td-YFr" id="1BW-Pd-Yab"/>
+                        <segue destination="WUr-8V-kqI" kind="relationship" relationship="nextPage" id="EF6-LE-0Tp"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="478" y="964"/>
+        </scene>
+        <!--COWatchCalculationController-->
+        <scene sceneID="Ji9-Bb-dDh">
+            <objects>
+                <controller identifier="COWatchCalculationController" id="WUr-8V-kqI" customClass="COWatchCalculationController">
+                    <items>
+                        <group width="1" height="25" alignment="left" id="meL-Na-JWd">
+                            <items>
+                                <label width="129" height="26" alignment="left" textAlignment="right" id="vk4-gT-UpA">
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                            </items>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </group>
+                        <group width="1" height="25" alignment="left" verticalAlignment="center" id="B4L-Sn-bJr">
+                            <items>
+                                <button width="30" height="25" alignment="center" title="7" id="8wR-Fb-M0i">
+                                    <connections>
+                                        <action selector="sevenClick" destination="WUr-8V-kqI" id="HVl-Pj-JYY"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="8" id="2jR-MG-Tfd">
+                                    <connections>
+                                        <action selector="eightClick" destination="WUr-8V-kqI" id="I8E-g7-j5f"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="9" id="Cak-y8-dn6">
+                                    <connections>
+                                        <action selector="nineClick" destination="WUr-8V-kqI" id="UVE-b8-7b8"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <group width="1" height="25" alignment="left" verticalAlignment="center" id="qga-YG-DQr">
+                            <items>
+                                <button width="30" height="25" alignment="center" title="4" id="36M-3S-Dk2">
+                                    <connections>
+                                        <action selector="fourClick" destination="WUr-8V-kqI" id="bUH-tZ-lvK"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="5" id="Oaq-iY-wfh">
+                                    <connections>
+                                        <action selector="fiveClick" destination="WUr-8V-kqI" id="iS7-bf-o04"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="6" id="SgD-oH-sJV">
+                                    <connections>
+                                        <action selector="sixClick" destination="WUr-8V-kqI" id="JSk-pJ-5b9"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <group width="1" height="25" alignment="left" verticalAlignment="center" id="Xwn-Bb-DPm">
+                            <items>
+                                <button width="30" height="25" alignment="center" title="1" id="XXv-Zk-mN7">
+                                    <connections>
+                                        <action selector="oneClick" destination="WUr-8V-kqI" id="51Q-wE-P7l"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="2" id="fDB-j3-5mC">
+                                    <connections>
+                                        <action selector="twoClick" destination="WUr-8V-kqI" id="m7a-i8-Gjj"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="3" id="PMb-d9-XZf">
+                                    <connections>
+                                        <action selector="threeClick" destination="WUr-8V-kqI" id="zmg-fu-grM"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <group width="1" height="25" alignment="left" verticalAlignment="center" id="vPo-79-oio">
+                            <items>
+                                <button width="30" height="25" alignment="center" title="." id="Zcg-Ce-ysR">
+                                    <connections>
+                                        <action selector="pointClick" destination="WUr-8V-kqI" id="yKe-QU-WlL"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="0" id="bPB-WB-Sl5">
+                                    <connections>
+                                        <action selector="zeroClick" destination="WUr-8V-kqI" id="b4E-ol-cAC"/>
+                                    </connections>
+                                </button>
+                                <button width="30" height="25" alignment="center" title="C" id="iQp-mp-HqZ">
+                                    <connections>
+                                        <action selector="cleanClick" destination="WUr-8V-kqI" id="MaC-pb-u83"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="clean" destination="iQp-mp-HqZ" id="Vly-Dx-iCp"/>
+                        <outlet property="eight" destination="2jR-MG-Tfd" id="EGq-rH-BiB"/>
+                        <outlet property="five" destination="Oaq-iY-wfh" id="dbn-7w-jd1"/>
+                        <outlet property="four" destination="36M-3S-Dk2" id="k1F-Tt-x3H"/>
+                        <outlet property="nine" destination="Cak-y8-dn6" id="wVo-f4-pNf"/>
+                        <outlet property="one" destination="XXv-Zk-mN7" id="ZEP-YW-iO5"/>
+                        <outlet property="point" destination="Zcg-Ce-ysR" id="HSg-Fs-l1V"/>
+                        <outlet property="priceLabel" destination="vk4-gT-UpA" id="euA-c5-EBm"/>
+                        <outlet property="seven" destination="8wR-Fb-M0i" id="p4l-DS-kFK"/>
+                        <outlet property="six" destination="SgD-oH-sJV" id="LvG-vI-A3d"/>
+                        <outlet property="three" destination="PMb-d9-XZf" id="wCT-uA-xh0"/>
+                        <outlet property="two" destination="fDB-j3-5mC" id="9UZ-Sm-kau"/>
+                        <outlet property="zero" destination="bPB-WB-Sl5" id="uDG-eO-mAJ"/>
+                        <segue destination="Mq1-n3-xd4" kind="relationship" relationship="nextPage" id="dCw-Tq-orS"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="692" y="964"/>
+        </scene>
+        <!--COWatchResultController-->
+        <scene sceneID="ZeD-IC-mO2">
+            <objects>
+                <controller identifier="COWatchResultController" id="Mq1-n3-xd4" customClass="COWatchResultController">
+                    <items>
+                        <imageView width="65" height="65" alignment="center" id="kcv-fJ-Rjz"/>
+                        <label width="134" height="20" alignment="left" text="1234567" textAlignment="center" id="cGK-wL-vLl">
+                            <color key="textColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label width="136" height="13" alignment="left" text="工资" textAlignment="center" id="G3j-sT-Q0g">
+                            <color key="textColor" red="0.0" green="0.58879009049999997" blue="0.98352693260000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" type="system" pointSize="13"/>
+                        </label>
+                        <button width="1" alignment="left" title="确定" id="h7r-bp-QHP">
+                            <connections>
+                                <action selector="okButtonClick" destination="Mq1-n3-xd4" id="hFE-WO-TwD"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="categoryImage" destination="kcv-fJ-Rjz" id="ti2-Kl-EbJ"/>
+                        <outlet property="categoryTitle" destination="G3j-sT-Q0g" id="bBJ-Bn-t2B"/>
+                        <outlet property="priceLabel" destination="cGK-wL-vLl" id="swr-W4-Iln"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="907" y="964"/>
+        </scene>
+        <!--Glance Interface Controller-->
+        <scene sceneID="BOz-TT-tkC">
+            <objects>
+                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
+                    <items>
+                        <group alignment="left" id="t8f-Gd-c4y"/>
+                        <group alignment="left" id="uCw-4Q-Ouw"/>
+                    </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                </glanceController>
+            </objects>
+            <point key="canvasLocation" x="235" y="1232"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
+                        <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="235" y="1473"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="KIl-fV-djm">
+            <objects>
+                <controller id="gdX-wl-uQE" customClass="NotificationController"/>
+            </objects>
+            <point key="canvasLocation" x="464" y="1473"/>
+        </scene>
+    </scenes>
+</document>
