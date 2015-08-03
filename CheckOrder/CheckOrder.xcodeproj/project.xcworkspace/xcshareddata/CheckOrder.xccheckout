@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>70638757-B8A4-4C58-8537-B8D11B3D1684</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>CheckOrder</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>F78E3F9654C10EDCF8EA218BB79FBC9512887980</key>
 		<string>https://github.com/baojuan/CO.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CheckOrder/CheckOrder.xcodeproj/project.xcworkspace</string>
+	<string>CheckOrder/CheckOrder.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F78E3F9654C10EDCF8EA218BB79FBC9512887980</key>

@@ -193,14 +193,19 @@ static CODataCenter *st_dataCenter = nil;
     NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:array];
     NSDictionary *resultDict = [CODataCenter getNowMonthData:now];
     if ([array count] > 0) {
+        __block BOOL flag = NO;
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *dict = obj;
             NSString *date = [dict valueForKey:kCODate];
             if ([date isEqualToString:nowMonth]) {
                 [resultArray replaceObjectAtIndex:idx withObject:resultDict];
+                flag = YES;
                 *stop = YES;
             }
         }];
+        if (!flag) {
+            [resultArray addObject:resultDict];
+        }
     }
     else {
         [resultArray addObject:resultDict];
