@@ -202,7 +202,7 @@
     
     COCategoryModel *model7 = [COCategoryModel new];
     
-    model7.categoryId = 1;
+    model7.categoryId = 7;
     model7.name = @"交通";
     model7.type = 1;
     model7.updateTime = 0;
@@ -213,7 +213,7 @@
     
     COCategoryModel *model8 = [COCategoryModel new];
     
-    model8.categoryId = 7;
+    model8.categoryId = 8;
     model8.name = @"其他";
     model8.type = 1;
     model8.updateTime = 0;
