@@ -54,7 +54,7 @@
     }
     order.sum = sum;
 
-    NSUserDefaults *userdefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.checkorder.watch"];
+    NSUserDefaults *userdefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.bj.co"];
     NSArray *orders = [userdefault valueForKey:@"WatchOrders"];
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:orders];
     [array addObject:[NSKeyedArchiver archivedDataWithRootObject:order]];

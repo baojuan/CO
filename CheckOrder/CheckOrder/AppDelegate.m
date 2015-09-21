@@ -40,7 +40,7 @@
     }
     
     
-    NSUserDefaults *userdefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.checkorder.watch"];
+    NSUserDefaults *userdefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.bj.co"];
 
     NSArray *array = [userdefault valueForKey:@"WatchOrders"];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
